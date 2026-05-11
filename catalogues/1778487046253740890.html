@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIJOUQ Catalogue</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root { --gold: #C5A059; --dark: #000; --text: #333; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'serif'; }
+        
+        .swiper { width: 100%; height: 100vh; }
+        .page-wrapper { display: flex; width: 100%; height: 100%; background: #fff; }
+
+        /* Sections */
+        .content-section { flex: 1; padding: 40px; display: flex; align-items: center; overflow-y: auto; }
+        .image-section { flex: 1.2; background-size: cover; background-position: center; position: relative; }
+        
+        .content-inner { width: 100%; max-width: 500px; margin: 0 auto; }
+        
+        /* Typography */
+        .desktop-vendor-tag { color: var(--gold); letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; font-family: sans-serif; }
+        .product-title { font-size: 2.5rem; margin: 10px 0; font-weight: normal; color: var(--dark); line-height: 1.1; }
+        .product-code { color: #999; font-size: 0.7rem; font-family: sans-serif; margin-bottom: 20px; }
+        
+        .details-grid { display: grid; gap: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        h3 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 5px; font-family: sans-serif; }
+        p { margin: 0; font-size: 0.95rem; color: #555; line-height: 1.5; }
+
+        .price-display { font-size: 2rem; margin: 30px 0; color: var(--dark); font-weight: bold; }
+
+        /* Buttons */
+        .actions { display: flex; flex-direction: column; gap: 10px; }
+        .btn-group { display: flex; gap: 10px; }
+        .btn { padding: 16px; border: 1px solid var(--gold); cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: 0.3s; flex: 1; font-family: sans-serif; }
+        .btn-main { background: var(--dark); color: white; border: none; }
+        .btn-sub { background: transparent; color: var(--dark); }
+        .btn:active { transform: scale(0.98); background: var(--gold); color: #fff; }
+
+        .mobile-vendor-tag { display: none; }
+
+        /* RESPONSIVE FIX (MOBILE) */
+        @media (max-width: 800px) {
+            .page-wrapper { flex-direction: column; }
+            .image-section { height: 45vh; flex: none; }
+            .content-section { height: 55vh; flex: none; padding: 25px; align-items: flex-start; }
+            .product-title { font-size: 1.8rem; }
+            .desktop-vendor-tag { display: none; }
+            .mobile-vendor-tag { 
+                display: block; position: absolute; top: 20px; left: 20px; 
+                background: rgba(255,255,255,0.9); padding: 5px 15px; font-size: 0.6rem;
+                letter-spacing: 2px; color: var(--gold); font-family: sans-serif;
+            }
+            .price-display { margin: 20px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            
+    <div class="swiper-slide">
+        <div class="page-wrapper">
+            <div class="image-section" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561')">
+                <div class="mobile-vendor-tag">Noi Gioielli</div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-inner">
+                    <span class="desktop-vendor-tag">Noi Gioielli</span>
+                    <h1 class="product-title">Onda Enamel Pendant, Rose Gold</h1>
+                    <p class="product-code">Ref: PN-2820</p>
+                    
+                    <div class="details-grid">
+                        <div class="info-block">
+                            <h3>Description</h3>
+                            <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                        </div>
+                        <div class="info-block">
+                            <h3>Details</h3>
+                            <p>Gold Weight: 7.15 gDiamond (Carat): RD 0.27 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                        </div>
+                    </div>
+
+                    <div class="price-display">QAR 10720</div>
+
+                    <div class="actions">
+                        <button onclick="sendAction('Availability', 'PN-2820')" class="btn btn-main">Check Availability</button>
+                        <div class="btn-group">
+                            <button onclick="sendAction('Ask Price', 'PN-2820')" class="btn btn-sub">Ask Price</button>
+                            <button onclick="sendAction('Advisor', 'PN-2820')" class="btn btn-sub">Advisor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+        <div class="swiper-button-next" style="color: var(--gold)"></div>
+        <div class="swiper-button-prev" style="color: var(--gold)"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            effect: 'fade', // Cleaner than 'creative' for mobile
+            fadeEffect: { crossFade: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        });
+
+        function sendAction(type, code) {
+            fetch('https://n8n.srv1138489.hstgr.cloud/webhook/weblink-buttons', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ action: type, product: code })
+            }).then(() => alert('Your request for ' + code + ' has been sent to our advisor.'));
+        }
+    </script>
+</body>
+</html>
+    
