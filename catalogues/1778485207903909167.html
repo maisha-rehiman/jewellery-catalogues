@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bijouq | Luxury Catalogue</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root { --gold: #C5A059; --dark: #121212; --bg: #f4f4f2; }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; height: 100%; background: var(--dark); font-family: 'Times New Roman', serif; overflow: hidden; }
+        
+        .swiper { width: 100%; height: 100vh; }
+        
+        .book-shell { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 40px; }
+        
+        .book-container { 
+            display: flex; 
+            width: 100%; 
+            max-width: 1200px; 
+            height: 80vh; 
+            background: white;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .page-content { flex: 1; height: 100%; position: relative; overflow: hidden; }
+        
+        /* Details Page */
+        .details-page { background: #fff; padding: 60px; display: flex; align-items: center; border-right: 1px solid #ddd; }
+        .inner { width: 100%; }
+        .vendor-tag { font-family: sans-serif; letter-spacing: 4px; font-size: 0.7rem; color: var(--gold); text-transform: uppercase; }
+        .product-title { font-size: 2.8rem; font-weight: normal; margin: 15px 0; color: #222; }
+        .product-code { font-family: sans-serif; font-size: 0.7rem; color: #999; margin-bottom: 20px; }
+        .divider { width: 40px; height: 2px; background: var(--gold); margin-bottom: 30px; }
+        
+        .section h3 { font-family: sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #555; }
+        .section p { color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        
+        .price-area { font-size: 2rem; color: #333; margin: 30px 0; }
+
+        /* Buttons */
+        .cta-stack { display: flex; flex-direction: column; gap: 10px; }
+        .btn-row { display: flex; gap: 10px; }
+        .btn { padding: 15px; cursor: pointer; border: 1px solid var(--gold); transition: 0.3s; font-family: sans-serif; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; flex: 1; }
+        .btn-gold { background: var(--gold); color: white; border: none; }
+        .btn-outline { background: transparent; color: var(--gold); }
+        .btn:hover { background: #b08d4b; color: white; }
+
+        /* Image Page */
+        .image-page { background-size: cover; background-position: center; }
+        .page-shadow { position: absolute; left: 0; top: 0; width: 40px; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.1), transparent); }
+
+        @media (max-width: 900px) {
+            .book-shell { padding: 0; }
+            .book-container { flex-direction: column-reverse; height: 100vh; max-width: 100%; }
+            .details-page { padding: 30px; flex: 1.5; }
+            .image-page { flex: 1; }
+            .product-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            
+    <div class="swiper-slide">
+        <div class="book-shell">
+            <div class="book-container">
+                <div class="page-content details-page">
+                    <div class="inner">
+                        <span class="vendor-tag">Bijouq</span>
+                        <h1 class="product-title">18 carat gold necklace</h1>
+                        <p class="product-code">Ref: C-101</p>
+                        
+                        <div class="divider"></div>
+
+                        <div class="section">
+                            <h3>Description</h3>
+                            <p>hkjanc,mac.mdpe,</p>
+                        </div>
+
+                        <div class="section">
+                            <h3>Details</h3>
+                            <p>nkwjnjdck<br><br>ajmoklcqm</p>
+                        </div>
+
+                        <div class="price-area">₹1200</div>
+
+                        <div class="cta-stack">
+                            <button onclick="sendAction('Availability', 'C-101')" class="btn btn-gold">Check Availability</button>
+                            <div class="btn-row">
+                                <button onclick="sendAction('Ask Price', 'C-101')" class="btn btn-outline">Ask Price</button>
+                                <button onclick="sendAction('Advisor', 'C-101')" class="btn btn-outline">Speak to Advisor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-content image-page" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-4452_080a9d4f-0588-42f2-971e-52106c38e446.png?v=1762088913')">
+                    <div class="page-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+        <div class="swiper-button-next" style="color: var(--gold)"></div>
+        <div class="swiper-button-prev" style="color: var(--gold)"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            grabCursor: true,
+            effect: 'creative',
+            creativeEffect: {
+                prev: { shadow: true, translate: ['-20%', 0, -1] },
+                next: { translate: ['100%', 0, 0] },
+            },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        });
+
+        function sendAction(type, code) {
+            fetch('https://n8n.srv1138489.hstgr.cloud/webhook/weblink-buttons', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ action: type, product: code })
+            }).then(() => alert('Inquiry sent!'));
+        }
+    </script>
+</body>
+</html>
+    
