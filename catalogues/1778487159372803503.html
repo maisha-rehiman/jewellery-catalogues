@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIJOUQ | Premium Catalogue</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root { --gold: #C5A059; --black: #000; --gray: #f8f8f8; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html { margin: 0; padding: 0; height: 100%; background: #000; font-family: 'Times New Roman', serif; }
+        
+        .swiper { width: 100%; height: 100vh; }
+        
+        .product-card { display: flex; width: 100%; height: 100%; background: #fff; }
+
+        /* Left Side: Image */
+        .image-area { flex: 1.1; background-size: cover; background-position: center; position: relative; }
+        .brand-badge { position: absolute; top: 30px; left: 30px; background: #fff; padding: 8px 20px; font-family: sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* Right Side: Content */
+        .data-area { flex: 1; display: flex; flex-direction: column; background: #fff; position: relative; border-left: 1px solid #eee; }
+        .scroll-container { padding: 60px; overflow-y: auto; width: 100%; height: 100%; }
+        
+        .category-label { font-family: sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); }
+        .title { font-size: 2.6rem; font-weight: normal; margin: 15px 0; color: var(--black); line-height: 1.2; }
+        .sku { font-family: sans-serif; color: #aaa; font-size: 0.7rem; margin-bottom: 30px; }
+        
+        .info-grid { border-top: 1px solid #eee; padding-top: 25px; display: grid; gap: 20px; }
+        label { font-family: sans-serif; font-size: 0.65rem; text-transform: uppercase; color: #888; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .info-item p { margin: 0; color: #555; font-size: 0.95rem; line-height: 1.6; }
+
+        .price-tag { font-size: 2.2rem; color: var(--black); margin: 35px 0; font-family: 'serif'; }
+
+        /* Buttons */
+        .action-stack { display: flex; flex-direction: column; gap: 12px; }
+        .btn-row { display: flex; gap: 12px; }
+        .btn { padding: 18px; border: 1px solid var(--gold); cursor: pointer; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s; flex: 1; font-family: sans-serif; }
+        .btn-dark { background: var(--black); color: #fff; border: none; }
+        .btn-outline { background: transparent; color: var(--black); }
+        .btn:hover { background: var(--gold); color: #fff; }
+
+        /* Navigation Arrows */
+        .swiper-button-next, .swiper-button-prev { color: var(--gold) !important; transform: scale(0.7); }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 900px) {
+            .product-card { flex-direction: column; }
+            .image-area { height: 42vh; flex: none; }
+            .data-area { height: 58vh; flex: none; border-left: none; }
+            .scroll-container { padding: 30px; }
+            .title { font-size: 1.8rem; }
+            .brand-badge { top: 20px; left: 20px; padding: 5px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            
+    <div class="swiper-slide">
+        <div class="product-card">
+            <div class="image-area" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561')">
+                <div class="brand-badge">Noi Gioielli</div>
+            </div>
+
+            <div class="data-area">
+                <div class="scroll-container">
+                    <span class="category-label">Exquisite Collection</span>
+                    <h1 class="title">Onda Enamel Pendant, Rose Gold</h1>
+                    <p class="sku">Model: PN-2820</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Description</label>
+                            <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Specifications</label>
+                            <p>Gold Weight: 7.15 gDiamond (Carat): RD 0.27 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                        </div>
+                    </div>
+
+                    <div class="price-tag">QAR 10720</div>
+
+                    <div class="action-stack">
+                        <button onclick="sendAction('Availability', 'PN-2820')" class="btn btn-dark">Check Availability</button>
+                        <div class="btn-row">
+                            <button onclick="sendAction('Ask Price', 'PN-2820')" class="btn btn-outline">Request Quote</button>
+                            <button onclick="sendAction('Advisor', 'PN-2820')" class="btn btn-outline">Advisor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            loop: false,
+            speed: 800,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        function sendAction(type, code) {
+            fetch('https://n8n.srv1138489.hstgr.cloud/webhook/weblink-buttons', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ action: type, product: code })
+            }).then(() => alert('Request sent for ' + code));
+        }
+    </script>
+</body>
+</html>
+    
