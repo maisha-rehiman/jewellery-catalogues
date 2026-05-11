@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Catalogue</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark: #1a1a1a;
+            --light: #f9f9f9;
+        }
+        body, html { margin: 0; padding: 0; height: 100%; background: #111; font-family: 'Georgia', serif; }
+        .swiper { width: 100%; height: 100vh; }
+        .book-container { display: flex; width: 100%; height: 100%; background: white; }
+        .page-left { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid #eee; background: var(--light); }
+        .page-right { flex: 1; background-size: cover; background-position: center; box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); }
+        .vendor-tag { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+        .product-title { font-size: 2.5rem; margin: 10px 0; color: var(--dark); font-weight: normal; }
+        .product-code { color: #888; font-family: sans-serif; font-size: 0.8rem; margin-bottom: 30px; }
+        .description-box h3 { font-size: 0.9rem; text-transform: uppercase; color: #444; margin-top: 20px; }
+        .description-box p { line-height: 1.6; color: #666; font-family: sans-serif; font-size: 0.95rem; }
+        .price-tag { font-size: 1.8rem; margin: 30px 0; color: var(--dark); }
+        .button-group { display: flex; flex-direction: column; gap: 10px; max-width: 300px; }
+        .btn { padding: 15px; border: 1px solid var(--gold); cursor: pointer; transition: 0.3s; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+        .btn-primary { background: var(--dark); color: white; border: none; }
+        .btn-outline { background: transparent; color: var(--dark); }
+        .btn:hover { background: var(--gold); color: white; }
+        @media (max-width: 768px) {
+            .book-container { flex-direction: column-reverse; }
+            .page-left { padding: 30px; }
+            .page-right { height: 40vh; flex: none; }
+            .product-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            
+    <div class="swiper-slide">
+        <div class="book-container">
+            <div class="page-left">
+                <div class="details-content">
+                    <span class="vendor-tag">Bijouq</span>
+                    <h1 class="product-title">18 carat gold necklace</h1>
+                    <p class="product-code">Ref: C-101</p>
+                    
+                    <div class="description-box">
+                        <h3>Description</h3>
+                        <p>hkjanc,mac.mdpe,</p>
+                        <h3>Details</h3>
+                        <p>nkwjnjdck<br><br>ajmoklcqm</p>
+                    </div>
+
+                    <div class="price-tag">₹1200</div>
+
+                    <div class="button-group">
+                        <button onclick="sendAction('Availability', 'C-101')" class="btn btn-primary">Check Availability</button>
+                        <button onclick="sendAction('Ask Price', 'C-101')" class="btn btn-outline">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'C-101')" class="btn btn-outline">Speak to Advisor</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-right" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-4452_080a9d4f-0588-42f2-971e-52106c38e446.png?v=1762088913')">
+            </div>
+        </div>
+    </div>
+
+        </div>
+        <div class="swiper-button-next" style="color: var(--gold)"></div>
+        <div class="swiper-button-prev" style="color: var(--gold)"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            loop: false,
+            effect: 'creative',
+            creativeEffect: {
+                prev: { shadow: true, translate: [0, 0, -400] },
+                next: { translate: ['100%', 0, 0] },
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        function sendAction(actionType, productCode) {
+            const webhookUrl = 'https://your-n8n-instance.com/webhook/catalogue-action';
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ action: actionType, product: productCode, timestamp: new Date().toISOString() })
+            }).then(() => { alert('Inquiry sent! Our advisor will contact you on WhatsApp.'); });
+        }
+    </script>
+</body>
+</html>
+    
