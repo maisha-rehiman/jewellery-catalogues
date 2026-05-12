@@ -1,0 +1,2576 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Collection | Blue Diamond Jewellery</title>
+    <style>
+        :root {
+            --gold: #C5A059;
+            --black: #0a0a0a;
+            --paper: #fcfaf7;
+            --muted: #999;
+            --border: #e8e2d9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #000;
+            font-family: 'Times New Roman', Times, serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ── Shared Typography ──────────────────────── */
+        .exquisite-label {
+            display: block;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            margin-bottom: 10px;
+        }
+        .product-title {
+            color: #111;
+            font-weight: normal;
+            font-size: 1.35rem;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+        .product-ref {
+            color: var(--muted);
+            font-size: 0.55rem;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .gold-accent-line {
+            width: 36px; height: 1px;
+            background: var(--gold);
+            margin: 18px 0;
+        }
+
+        /* ── Shared Buttons ─────────────────────────── */
+        .btn {
+            padding: 14px;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+            font-family: sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+        }
+        .btn-primary {
+            width: 100%;
+            background: var(--black);
+            color: #fff;
+            border-color: var(--black);
+            margin-bottom: 9px;
+        }
+        .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+        .btn-secondary { flex: 1; background: transparent; color: var(--gold); }
+        .btn-secondary:hover { background: var(--gold); color: #fff; }
+        .btn-split { display: flex; gap: 9px; }
+
+        /* ── Vendor tags ────────────────────────────── */
+        .vendor-tag, .vendor-overlay-box {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: #fff;
+            padding: 7px 14px;
+            color: var(--gold);
+            font-family: sans-serif;
+            font-size: 0.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid #f0ece6;
+            z-index: 5;
+        }
+
+        /* ── Accordions (shared) ────────────────────── */
+        .accordion { border-top: 1px solid var(--border); }
+        .accordion:last-of-type { border-bottom: 1px solid var(--border); }
+        .accordion summary {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            font-family: sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+        }
+        .accordion summary::-webkit-details-marker { display: none; }
+        .accordion summary::after { content: '+'; font-size: 1rem; }
+        .accordion[open] summary::after { content: '−'; }
+        .accordion p {
+            font-size: 0.78rem;
+            color: #666;
+            line-height: 1.65;
+            padding-bottom: 12px;
+        }
+
+        /* ════════════════════════════════════════════
+           LUXURY COVER  (shared)
+        ════════════════════════════════════════════ */
+        .cover-page {
+            background: #030303;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%; height: 100%;
+            position: relative;
+        }
+
+        /* Subtle horizontal scan lines for editorial texture */
+        .cover-page::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(255,255,255,0.012) 3px,
+                    rgba(255,255,255,0.012) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Gold corner vignette glow — very subtle */
+        .cover-page::after {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 100%, rgba(197,160,89,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 50% 0%, rgba(197,160,89,0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cover-frame {
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(197,160,89,0.2);
+            padding: 52px 64px 48px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255,255,255,0.015);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+
+        /* Corner ornaments — thinner, more refined */
+        .cover-frame::before, .cover-frame::after,
+        .cover-corners::before, .cover-corners::after {
+            content: '';
+            position: absolute;
+            width: 22px; height: 22px;
+            border-color: rgba(197,160,89,0.75);
+            border-style: solid;
+        }
+        .cover-frame::before  { top: -1px;    left: -1px;  border-width: 1px 0 0 1px; }
+        .cover-frame::after   { top: -1px;    right: -1px; border-width: 1px 1px 0 0; }
+        .cover-corners { position: absolute; inset: -1px; pointer-events: none; }
+        .cover-corners::before { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+        .cover-corners::after  { bottom: -1px; left: -1px;  border-width: 0 0 1px 1px; }
+
+        .cover-logo-img {
+            width: 72px;
+            height: auto;
+            margin-bottom: 28px;
+            filter: brightness(0) invert(1) sepia(1) saturate(0.3) brightness(1.2);
+            opacity: 0.9;
+        }
+        .cover-rule {
+            width: 1px; height: 40px;
+            background: linear-gradient(180deg, transparent, rgba(197,160,89,0.6) 40%, rgba(197,160,89,0.6) 60%, transparent);
+            margin-bottom: 28px;
+        }
+        .cover-rule.bottom {
+            margin-top: 28px;
+            margin-bottom: 0;
+        }
+        .logo-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .logo-stack h1 {
+            color: #fff;
+            letter-spacing: 18px;
+            font-weight: 200;
+            font-size: 2.8rem;
+            text-indent: 18px;
+            line-height: 1.1;
+            margin: 0;
+            text-shadow: 0 0 40px rgba(197,160,89,0.15);
+        }
+        .logo-dot-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin: 18px 0 16px;
+        }
+        .logo-dot {
+            width: 2px; height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        .logo-dot:nth-child(2) {
+            width: 4px; height: 4px;
+            opacity: 1;
+        }
+        .logo-stack h2 {
+            color: var(--gold);
+            font-size: 0.6rem;
+            letter-spacing: 11px;
+            font-family: sans-serif;
+            font-weight: 300;
+            text-indent: 11px;
+            margin: 0;
+            opacity: 0.85;
+        }
+
+        .cover-invite {
+            position: absolute;
+            bottom: max(36px, calc(env(safe-area-inset-bottom, 0px) + 28px));
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .cover-invite-line { display: flex; align-items: center; gap: 16px; }
+        .cover-invite-rule {
+            width: 36px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(197,160,89,0.4));
+        }
+        .cover-invite-rule.right {
+            background: linear-gradient(90deg, rgba(197,160,89,0.4), transparent);
+        }
+        .cover-invite p {
+            color: rgba(197,160,89,0.7);
+            font-size: 0.48rem;
+            letter-spacing: 4px;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .cover-chevron {
+            width: 6px; height: 6px;
+            border-right: 1px solid rgba(197,160,89,0.7);
+            border-bottom: 1px solid rgba(197,160,89,0.7);
+            transform: rotate(45deg);
+            animation: chevDrift 2.8s ease-in-out infinite;
+        }
+        .cover-chevron.horizontal {
+            transform: rotate(-45deg);
+            animation: chevDriftH 2.8s ease-in-out infinite;
+        }
+        .chevron-pair { display: flex; gap: 6px; align-items: center; }
+        .chevron-pair .cover-chevron:nth-child(2) { animation-delay: 0.4s; }
+        @keyframes chevDrift {
+            0%, 100% { opacity: 0.2; transform: rotate(45deg) translate(0,0); }
+            50%       { opacity: 0.85; transform: rotate(45deg) translate(2px,2px); }
+        }
+        @keyframes chevDriftH {
+            0%, 100% { opacity: 0.2; transform: rotate(-45deg) translate(0,0); }
+            50%       { opacity: 0.85; transform: rotate(-45deg) translate(3px,0); }
+        }
+
+        /* ════════════════════════════════════════════
+           DESKTOP › Two-page flipbook  (> 900px)
+        ════════════════════════════════════════════ */
+        @media (min-width: 901px) {
+            .mobile-wrapper { display: none; }
+
+            .desktop-wrapper {
+                width: 100vw; height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #080808;
+                overflow: hidden;
+            }
+
+            /* Dimensions set by JS */
+            #flipbook { flex-shrink: 0; }
+            .page { background: #fff; overflow: hidden; }
+
+            .details-side {
+                padding: 52px 56px 52px;
+                background: var(--paper);
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-right: 1px solid #eee;
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* ── Page number: now at the top-right alongside the label ── */
+            .page-header-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 14px;
+            }
+            .page-counter {
+                font-family: sans-serif;
+                font-size: 0.7rem;
+                color: #bbb;
+                letter-spacing: 2px;
+            }
+            .page-counter em {
+                font-style: normal;
+                color: var(--gold);
+                margin: 0 3px;
+            }
+            /* Remove old absolute-positioned number */
+            .exquisite-label { margin-bottom: 0; }
+
+            .image-side {
+                height: 100%;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: #fff;
+                position: relative;
+            }
+            .price-container {
+                font-size: 1.8rem;
+                margin: 20px 0 18px;
+                border-top: 1px solid #eee;
+                padding-top: 16px;
+                color: #000;
+            }
+            .narrative-box label {
+                display: block;
+                font-size: 0.55rem;
+                color: var(--gold);
+                font-family: sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 5px;
+            }
+            .narrative-box p {
+                font-size: 0.82rem;
+                color: #555;
+                line-height: 1.7;
+                margin-bottom: 16px;
+            }
+            .center-spine-shadow {
+                position: absolute; left: 0;
+                width: 40px; height: 100%;
+                background: linear-gradient(to right, rgba(0,0,0,0.06), transparent);
+            }
+        }
+
+        /* ════════════════════════════════════════════
+           MOBILE / TABLET › Single-page flipbook (≤ 900px)
+           Same 3D page-turn animation, one product per page,
+           image on top + scrollable details below.
+        ════════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .desktop-wrapper { display: none; }
+
+            .mobile-wrapper {
+                width: 100vw; height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #0a0a0a;
+                overflow: hidden;
+                position: relative;
+            }
+
+            /* Dimensions set by JS */
+            #mobile-flipbook { flex-shrink: 0; }
+
+            /* Each mobile page is a full-screen card */
+            .mobile-single-page {
+                background: #fff;
+                overflow: visible;
+            }
+
+            .mobile-page-wrap {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            /* ── Image panel (top ~38%) ── */
+            .mobile-img-panel {
+                flex: 0 0 38%;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: #fff;
+                position: relative;
+                border-bottom: 1px solid var(--border);
+            }
+
+            /* Page counter sits bottom-right of the image, visually clean */
+            .mobile-pnum {
+                position: absolute;
+                bottom: 10px; right: 14px;
+                font-family: sans-serif;
+                font-size: 0.9rem;
+                color: #bbb;
+                letter-spacing: 1px;
+                line-height: 1;
+            }
+            .mobile-pnum span {
+                font-size: 0.48rem;
+                letter-spacing: 2px;
+                color: #ccc;
+            }
+
+            /* ── Details panel (bottom ~62%) — scrollable ── */
+            /* min-height: 0 is the critical flexbox fix that allows
+               this flex child to actually shrink and become scrollable.
+               Without it, overflow-y never activates regardless of content length. */
+            .mobile-info-panel {
+                flex: 1;
+                min-height: 0;
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+                /* pan-y lets the browser own vertical scroll so page-flip
+                   touch detection (horizontal drag) doesn't interfere */
+                touch-action: pan-y;
+                padding: 18px 22px;
+                padding-bottom: max(80px, calc(env(safe-area-inset-bottom, 0px) + 64px));
+                background: var(--paper);
+            }
+
+            .price-display {
+                font-size: 1.3rem;
+                color: #111;
+                margin-bottom: 16px;
+            }
+
+            .slide-actions {
+                margin-top: 18px;
+                border-top: 1px solid var(--border);
+                padding-top: 16px;
+            }
+
+            /* ── Navigation arrows (tap to flip) ── */
+            /* Positioned on the IMAGE panel so they never obscure product text */
+            .mobile-nav-btn {
+                position: fixed;
+                top: 19%;           /* centre of the 38% image panel */
+                transform: translateY(-50%);
+                z-index: 200;
+                width: 60px; height: 54px;
+                background: rgba(10,10,10,0.45);
+                border: 1px solid rgba(197,160,89,0.35);
+                color: rgba(197,160,89,0.9);
+                font-size: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                transition: background 0.2s;
+                /* don't let taps on the arrow bubble to PageFlip */
+                touch-action: none;
+            }
+            .mobile-nav-btn:hover { background: rgba(197,160,89,0.25); }
+            .mobile-nav-btn.prev { left: 0; border-left: none; border-radius: 0 4px 4px 0; }
+            .mobile-nav-btn.next { right: 0; border-right: none; border-radius: 4px 0 0 4px; }
+
+            /* Hide arrows on the cover slide (JS adds .on-cover to body) */
+            body.on-cover .mobile-nav-btn.prev { opacity: 0; pointer-events: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════ DESKTOP: Two-page flipbook ═══════════════════ -->
+    <div class="desktop-wrapper">
+        <div id="flipbook">
+            <div class="page" data-density="hard">
+                <div class="page-content cover-page">
+                    
+    <div class="cover-frame">
+        <div class="cover-corners"></div>
+        <img 
+            src="https://res.cloudinary.com/daucolvng/image/upload/f_auto,q_auto/BD_Logo_d4gza1"
+            alt="Blue Diamond"
+            class="cover-logo-img"
+        />
+        <div class="cover-rule"></div>
+        <div class="logo-stack">
+            <h1>BLUE</h1>
+            <h1>DIAMOND</h1>
+            <div class="logo-dot-row">
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+            </div>
+            <h2>JEWELLERY</h2>
+        </div>
+        <div class="cover-rule bottom"></div>
+    </div>
+    <div class="cover-invite">
+        <div class="cover-invite-line">
+            <div class="cover-invite-rule"></div>
+            <p>Turn the page to explore the collection</p>
+            <div class="cover-invite-rule right"></div>
+        </div>
+        <div class="cover-chevron"></div>
+    </div>
+                </div>
+            </div>
+            
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">01 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Onda Enamel Pendant, Rose Gold</h2>
+                <p class="product-ref">Model: PN-2820</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 7.15 gDiamond (Carat): RD 0.27 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 10720</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-2820')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-2820')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-2820')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">02 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Incanto Multi Coloured Ring, White Gold</h2>
+                <p class="product-ref">Model: RN-2041</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 4.73 gDiamond (Carat): RD 0.1 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy+AI43</p>
+                </div>
+                <div class="price-container">QAR 4440</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-2041')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2041')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2041')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2041_8a8ff5de-edc4-4a0f-a15a-34e2154a1f08.jpg?v=1757912598')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">03 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Incanto Multi Coloured Ring, Yellow Gold</h2>
+                <p class="product-ref">Model: RN-2051</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 1.64 gDiamond (Carat): RD 0.05 CT, VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 2640</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-2051')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2051')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2051')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2051_1f11ef7c-391e-4af6-9a3e-a1aa81539082.jpg?v=1757912597')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">04 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Onda Enamel Ring, Enchanting colors</h2>
+                <p class="product-ref">Model: RN-2507</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Enchanting colors in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 12.8 gDiamond (Carat): RD 0.48 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 14270</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-2507')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2507')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2507')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2507_455033dc-0d3c-4adc-ac8f-57cc2ed1f4db.jpg?v=1757912597')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">05 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Malachite Ring</h2>
+                <p class="product-ref">Model: RN-3123</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 6.44 gDiamond (Carat): RD 0.28 VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 5540</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-3123')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-3123')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-3123')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-3123_27f7de14-3c5a-49b4-827d-a8d440c1c07a.jpg?v=1757912595')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">06 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Ring</h2>
+                <p class="product-ref">Model: RN-3122</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 6.44 gDiamond (Carat): RD 0.28 VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 5540</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-3122')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-3122')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-3122')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-3122_cce45449-13f2-41c5-9aa3-812f97c5bc1c.jpg?v=1757912594')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">07 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Noi Gioielli Malachite Ring</h2>
+                <p class="product-ref">Model: RN-4624</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 9.32 gDiamond (Carat): RD 0.38 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 11140</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-4624')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-4624')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-4624')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-4624_7bc24b52-fe04-4915-9eb7-2a09f4965b7c.jpg?v=1757912593')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">08 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Enamel Ring</h2>
+                <p class="product-ref">Model: RN-2073</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Elegant design in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 3.86 gDiamond (Carat): RD 0.2 CT, VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 4190</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-2073')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2073')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2073')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2073_67ae9032-0c49-4168-bb86-7bb28c457210.jpg?v=1757912591')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">09 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Ornato Hand Engraved Crown Ring</h2>
+                <p class="product-ref">Model: RN-1070</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 7.95 gDiamond (Carat): RD,13 PC,0.14C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 6100</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'RN-1070')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-1070')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-1070')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-1070_00b59727-9a2b-4b18-90c5-af8a30ef2843.jpg?v=1757912590')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">10 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Incanto Multi Coloured Earrings</h2>
+                <p class="product-ref">Model: ER-3844</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 7.5 gDiamond (Carat): RD 0.12 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 7070</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'ER-3844')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-3844')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-3844')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-3844_8195d62a-64d5-4c9f-9cf0-5d1fcab81e8d.jpg?v=1757912586')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">11 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Onda Enamel Earring, White Gold</h2>
+                <p class="product-ref">Model: ER-2216</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —lightweight and full of style.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 8.8 gDiamond (Carat): RD 0.53 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 12820</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'ER-2216')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-2216')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-2216')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-2216_6cfe6395-3e20-40fd-a63c-d6e892fb2cd8.jpg?v=1757912583')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">12 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Enamel Earrings</h2>
+                <p class="product-ref">Model: ER-3498</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —lightweight and full of style.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 8.49 gDiamond (Carat): RD 0.53 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 10330</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'ER-3498')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-3498')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-3498')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-3498_22e9f623-d245-43c8-b148-e7152fe0b9c0.jpg?v=1757912581')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">13 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Noi Gioielli Malachite Earrings</h2>
+                <p class="product-ref">Model: ER-3847</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —lightweight and full of style.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 10.3 gDiamond (Carat): RD 0.52 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 14460</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'ER-3847')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-3847')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-3847')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-3847_bb61cf63-950b-440f-9054-04c9a749455d.jpg?v=1757912578')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">14 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Ornato Hand Engraved Crown Earrings, Yellow Gold</h2>
+                <p class="product-ref">Model: ER-1065</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Elegant design in enamel with diamonds —lightweight and full of style.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 10.15 gDiamond (Carat): RD,26 PC,0.28C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 8280</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'ER-1065')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-1065')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-1065')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-1065_a98facbb-5ca8-4d9b-91a4-435c4b1ada1b.jpg?v=1757912576')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">15 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Ornato Florentine Finish Earring</h2>
+                <p class="product-ref">Model: ER-1064</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Ornate refinement in enamel with diamonds —lightweight and full of style.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 10.5 gDiamond (Carat): RD,16 PC,0.23C VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 8010</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'ER-1064')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-1064')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-1064')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-1064_04b99538-3b6a-4ca7-9d55-f8f3246d8c17.jpg?v=1757912575')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">16 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Enamel Bracelet, Yellow Gold</h2>
+                <p class="product-ref">Model: BR-1312</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —versatile and sleek for any occasion.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 8.20 gDiamond (Carat): RD 0.28 CT,VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 7360</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'BR-1312')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1312')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1312')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1312_f427e502-b33a-41bd-9435-0841dfb34146.jpg?v=1757912572')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">17 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Incanto Multi Colored Bracelet</h2>
+                <p class="product-ref">Model: BR-1325</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Enchanting colors in enamel with diamonds —versatile and sleek for any occasion.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 8.98 gDiamond (Carat): RD 0.1 CT, VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 6760</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'BR-1325')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1325')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1325')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1325_44ba1529-6b10-4a3d-a13e-b2ac06e776a5.jpg?v=1757912569')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">18 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Fucsia Enamel & Black Mop Bracelet</h2>
+                <p class="product-ref">Model: BR-1246</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —versatile and sleek for any occasion.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 13.4 gDiamond (Carat): RD,0.38 C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 7590</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'BR-1246')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1246')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1246')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1246_757aee69-e8ba-46cb-803f-74674a14c138.jpg?v=1757912567')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">19 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Incanto Multi Coloured Bracelet</h2>
+                <p class="product-ref">Model: BR-1322</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Enchanting colors in enamel with diamonds —versatile and sleek for any occasion.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 8.68 gDiamond (Carat): RD 0.1 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 6760</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'BR-1322')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1322')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1322')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1322_9c3588b7-f5b4-41d3-aee0-61c2f688e414.jpg?v=1757912565')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">20 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Rose Pink Enamel Bracelet</h2>
+                <p class="product-ref">Model: BR-1309</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 4.60 gDiamond (Carat): RD 0.20 CT,VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 6060</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'BR-1309')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1309')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1309')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1309_4686dece-5299-4c49-b3dd-246a97460955.jpg?v=1757912563')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">21 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Ornato Florentine Finish Pendant</h2>
+                <p class="product-ref">Model: PN-1040</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Ornate refinement in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 7.40 gDiamond (Carat): RD,8 PC,0.1C VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 4810</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-1040')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1040')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1040')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1040_824ab5fa-588d-4ce2-a7d8-fd3fa90ad0de.jpg?v=1757912562')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">22 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Onda Enamel Pendant, White Gold</h2>
+                <p class="product-ref">Model: PN-1421</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 11.3 gDiamond (Carat): RD 0.50 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 12700</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-1421')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1421')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1421')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1421_ea7247f9-508f-4ccf-bf8d-4f44c875a922.jpg?v=1757912560')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">23 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Noi Gioielli Malachite Pendant</h2>
+                <p class="product-ref">Model: PN-2345</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Elegant design in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 12.58 gDiamond (Carat): RD 0.62 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 14520</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-2345')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-2345')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-2345')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2345_c3c9bac0-8f46-4e75-ba27-58f5907e01a0.jpg?v=1757912559')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">24 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Incanto Multi Coloured Pendant</h2>
+                <p class="product-ref">Model: PN-1387</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Enchanting colors in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 9.668 gDiamond (Carat): RD 0.16 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 7970</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-1387')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1387')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1387')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1387_7eaab1c4-272c-4482-9586-332ae637c698.jpg?v=1757912557')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">25 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Ornato Hand Engraved Crown Pendant</h2>
+                <p class="product-ref">Model: PN-1042</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Ornate refinement in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 9.97 gDiamond (Carat): RD,13 PC,0.14C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 6930</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-1042')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1042')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1042')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1042_36962770-cb67-4adf-85c3-66111ef1bae4.jpg?v=1757912556')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">26 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Rose Pink Enamel Choker Necklace</h2>
+                <p class="product-ref">Model: NK-3416</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Elegant design in enamel with diamonds —crafted to highlight the neckline.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 10.59 gDiamond (Carat): RD 0.55 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 17590</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'NK-3416')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'NK-3416')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'NK-3416')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-3416_39854159-8211-4820-8253-bd8efb60aacf.jpg?v=1757912555')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">27 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Fucsia Enamel & Black Mop Pendant</h2>
+                <p class="product-ref">Model: PN-1247</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 8.1 gDiamond (Carat): RD,0.21 C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 4690</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-1247')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1247')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1247')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1247_6899a7d3-5481-4a5b-a6d0-f7d0b315bd45.jpg?v=1757912553')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+    <div class="page" data-density="soft">
+        <div class="page-content details-side">
+            <div class="inner">
+                <div class="page-header-row">
+                    <span class="exquisite-label">EXQUISITE COLLECTION</span>
+                    <span class="page-counter">28 <em>/</em> 28</span>
+                </div>
+                <h2 class="product-title">Mistica Evergreen Enamel Pendant</h2>
+                <p class="product-ref">Model: PN-2340</p>
+                <div class="gold-accent-line"></div>
+                <div class="narrative-box">
+                    <label>The Piece</label>
+                    <p>Mystic elegance in enamel with diamonds —a statement accent piece.</p>
+                    <label>Details</label>
+                    <p>Gold Weight: 2.77 gDiamond (Carat): RD 0.15 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </div>
+                <div class="price-container">QAR 3920</div>
+                <div class="button-group">
+                    <button onclick="sendAction('Availability', 'PN-2340')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-2340')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-2340')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" data-density="soft">
+        <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2340_accb5927-8859-4234-bfd0-9f2992f5268d.jpg?v=1757912552')">
+            <div class="vendor-overlay-box">Noi Gioielli</div>
+            <div class="center-spine-shadow"></div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════════════════ MOBILE / TABLET: Single-page flipbook ════════ -->
+    <div class="mobile-wrapper">
+        <div id="mobile-flipbook">
+            <div class="page" data-density="hard">
+                <div class="cover-page" id="mobile-cover">
+                    
+    <div class="cover-frame">
+        <div class="cover-corners"></div>
+        <img 
+            src="https://res.cloudinary.com/daucolvng/image/upload/f_auto,q_auto/BD_Logo_d4gza1"
+            alt="Blue Diamond"
+            class="cover-logo-img"
+        />
+        <div class="cover-rule"></div>
+        <div class="logo-stack">
+            <h1>BLUE</h1>
+            <h1>DIAMOND</h1>
+            <div class="logo-dot-row">
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+                <span class="logo-dot"></span>
+            </div>
+            <h2>JEWELLERY</h2>
+        </div>
+        <div class="cover-rule bottom"></div>
+    </div>
+    <div class="cover-invite">
+        <div class="cover-invite-line">
+            <div class="cover-invite-rule"></div>
+            <p>Flip the page to discover the collection</p>
+            <div class="cover-invite-rule right"></div>
+        </div>
+        <div class="chevron-pair"><div class="cover-chevron horizontal"></div><div class="cover-chevron horizontal"></div></div>
+    </div>
+                </div>
+            </div>
+            
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    01<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Onda Enamel Pendant, Rose Gold</h2>
+                <p class="product-ref">REF: PN-2820</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 10720</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 7.15 gDiamond (Carat): RD 0.27 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-2820')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-2820')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-2820')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2041_8a8ff5de-edc4-4a0f-a15a-34e2154a1f08.jpg?v=1757912598')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    02<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Incanto Multi Coloured Ring, White Gold</h2>
+                <p class="product-ref">REF: RN-2041</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 4440</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 4.73 gDiamond (Carat): RD 0.1 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy+AI43</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-2041')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2041')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2041')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2051_1f11ef7c-391e-4af6-9a3e-a1aa81539082.jpg?v=1757912597')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    03<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Incanto Multi Coloured Ring, Yellow Gold</h2>
+                <p class="product-ref">REF: RN-2051</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 2640</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 1.64 gDiamond (Carat): RD 0.05 CT, VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-2051')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2051')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2051')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2507_455033dc-0d3c-4adc-ac8f-57cc2ed1f4db.jpg?v=1757912597')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    04<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Onda Enamel Ring, Enchanting colors</h2>
+                <p class="product-ref">REF: RN-2507</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 14270</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Enchanting colors in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 12.8 gDiamond (Carat): RD 0.48 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-2507')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2507')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2507')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-3123_27f7de14-3c5a-49b4-827d-a8d440c1c07a.jpg?v=1757912595')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    05<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Malachite Ring</h2>
+                <p class="product-ref">REF: RN-3123</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 5540</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 6.44 gDiamond (Carat): RD 0.28 VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-3123')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-3123')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-3123')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-3122_cce45449-13f2-41c5-9aa3-812f97c5bc1c.jpg?v=1757912594')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    06<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Ring</h2>
+                <p class="product-ref">REF: RN-3122</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 5540</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 6.44 gDiamond (Carat): RD 0.28 VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-3122')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-3122')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-3122')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-4624_7bc24b52-fe04-4915-9eb7-2a09f4965b7c.jpg?v=1757912593')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    07<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Noi Gioielli Malachite Ring</h2>
+                <p class="product-ref">REF: RN-4624</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 11140</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 9.32 gDiamond (Carat): RD 0.38 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-4624')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-4624')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-4624')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-2073_67ae9032-0c49-4168-bb86-7bb28c457210.jpg?v=1757912591')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    08<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Enamel Ring</h2>
+                <p class="product-ref">REF: RN-2073</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 4190</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Elegant design in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 3.86 gDiamond (Carat): RD 0.2 CT, VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-2073')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-2073')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-2073')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/RN-1070_00b59727-9a2b-4b18-90c5-af8a30ef2843.jpg?v=1757912590')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    09<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Ornato Hand Engraved Crown Ring</h2>
+                <p class="product-ref">REF: RN-1070</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 6100</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 7.95 gDiamond (Carat): RD,13 PC,0.14C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'RN-1070')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'RN-1070')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'RN-1070')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-3844_8195d62a-64d5-4c9f-9cf0-5d1fcab81e8d.jpg?v=1757912586')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    10<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Incanto Multi Coloured Earrings</h2>
+                <p class="product-ref">REF: ER-3844</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 7070</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —polished elegance for everyday wear.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 7.5 gDiamond (Carat): RD 0.12 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'ER-3844')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-3844')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-3844')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-2216_6cfe6395-3e20-40fd-a63c-d6e892fb2cd8.jpg?v=1757912583')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    11<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Onda Enamel Earring, White Gold</h2>
+                <p class="product-ref">REF: ER-2216</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 12820</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —lightweight and full of style.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 8.8 gDiamond (Carat): RD 0.53 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'ER-2216')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-2216')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-2216')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-3498_22e9f623-d245-43c8-b148-e7152fe0b9c0.jpg?v=1757912581')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    12<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Enamel Earrings</h2>
+                <p class="product-ref">REF: ER-3498</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 10330</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —lightweight and full of style.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 8.49 gDiamond (Carat): RD 0.53 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'ER-3498')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-3498')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-3498')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-3847_bb61cf63-950b-440f-9054-04c9a749455d.jpg?v=1757912578')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    13<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Noi Gioielli Malachite Earrings</h2>
+                <p class="product-ref">REF: ER-3847</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 14460</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —lightweight and full of style.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 10.3 gDiamond (Carat): RD 0.52 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'ER-3847')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-3847')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-3847')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-1065_a98facbb-5ca8-4d9b-91a4-435c4b1ada1b.jpg?v=1757912576')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    14<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Ornato Hand Engraved Crown Earrings, Yellow Gold</h2>
+                <p class="product-ref">REF: ER-1065</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 8280</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Elegant design in enamel with diamonds —lightweight and full of style.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 10.15 gDiamond (Carat): RD,26 PC,0.28C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'ER-1065')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-1065')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-1065')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/ER-1064_04b99538-3b6a-4ca7-9d55-f8f3246d8c17.jpg?v=1757912575')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    15<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Ornato Florentine Finish Earring</h2>
+                <p class="product-ref">REF: ER-1064</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 8010</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Ornate refinement in enamel with diamonds —lightweight and full of style.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 10.5 gDiamond (Carat): RD,16 PC,0.23C VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'ER-1064')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'ER-1064')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'ER-1064')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1312_f427e502-b33a-41bd-9435-0841dfb34146.jpg?v=1757912572')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    16<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Enamel Bracelet, Yellow Gold</h2>
+                <p class="product-ref">REF: BR-1312</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 7360</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —versatile and sleek for any occasion.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 8.20 gDiamond (Carat): RD 0.28 CT,VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'BR-1312')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1312')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1312')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1325_44ba1529-6b10-4a3d-a13e-b2ac06e776a5.jpg?v=1757912569')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    17<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Incanto Multi Colored Bracelet</h2>
+                <p class="product-ref">REF: BR-1325</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 6760</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Enchanting colors in enamel with diamonds —versatile and sleek for any occasion.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 8.98 gDiamond (Carat): RD 0.1 CT, VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'BR-1325')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1325')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1325')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1246_757aee69-e8ba-46cb-803f-74674a14c138.jpg?v=1757912567')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    18<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Fucsia Enamel & Black Mop Bracelet</h2>
+                <p class="product-ref">REF: BR-1246</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 7590</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —versatile and sleek for any occasion.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 13.4 gDiamond (Carat): RD,0.38 C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'BR-1246')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1246')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1246')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1322_9c3588b7-f5b4-41d3-aee0-61c2f688e414.jpg?v=1757912565')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    19<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Incanto Multi Coloured Bracelet</h2>
+                <p class="product-ref">REF: BR-1322</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 6760</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Enchanting colors in enamel with diamonds —versatile and sleek for any occasion.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 8.68 gDiamond (Carat): RD 0.1 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'BR-1322')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1322')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1322')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/BR-1309_4686dece-5299-4c49-b3dd-246a97460955.jpg?v=1757912563')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    20<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Rose Pink Enamel Bracelet</h2>
+                <p class="product-ref">REF: BR-1309</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 6060</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 4.60 gDiamond (Carat): RD 0.20 CT,VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'BR-1309')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'BR-1309')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'BR-1309')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1040_824ab5fa-588d-4ce2-a7d8-fd3fa90ad0de.jpg?v=1757912562')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    21<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Ornato Florentine Finish Pendant</h2>
+                <p class="product-ref">REF: PN-1040</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 4810</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Ornate refinement in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 7.40 gDiamond (Carat): RD,8 PC,0.1C VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-1040')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1040')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1040')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1421_ea7247f9-508f-4ccf-bf8d-4f44c875a922.jpg?v=1757912560')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    22<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Onda Enamel Pendant, White Gold</h2>
+                <p class="product-ref">REF: PN-1421</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 12700</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 11.3 gDiamond (Carat): RD 0.50 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-1421')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1421')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1421')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2345_c3c9bac0-8f46-4e75-ba27-58f5907e01a0.jpg?v=1757912559')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    23<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Noi Gioielli Malachite Pendant</h2>
+                <p class="product-ref">REF: PN-2345</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 14520</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Elegant design in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 12.58 gDiamond (Carat): RD 0.62 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-2345')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-2345')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-2345')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1387_7eaab1c4-272c-4482-9586-332ae637c698.jpg?v=1757912557')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    24<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Incanto Multi Coloured Pendant</h2>
+                <p class="product-ref">REF: PN-1387</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 7970</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Enchanting colors in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 9.668 gDiamond (Carat): RD 0.16 CT, VS-GGold Color: WhiteResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-1387')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1387')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1387')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1042_36962770-cb67-4adf-85c3-66111ef1bae4.jpg?v=1757912556')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    25<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Ornato Hand Engraved Crown Pendant</h2>
+                <p class="product-ref">REF: PN-1042</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 6930</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Ornate refinement in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 9.97 gDiamond (Carat): RD,13 PC,0.14C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-1042')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1042')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1042')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-3416_39854159-8211-4820-8253-bd8efb60aacf.jpg?v=1757912555')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    26<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Rose Pink Enamel Choker Necklace</h2>
+                <p class="product-ref">REF: NK-3416</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 17590</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Elegant design in enamel with diamonds —crafted to highlight the neckline.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 10.59 gDiamond (Carat): RD 0.55 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'NK-3416')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'NK-3416')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'NK-3416')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1247_6899a7d3-5481-4a5b-a6d0-f7d0b315bd45.jpg?v=1757912553')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    27<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Fucsia Enamel & Black Mop Pendant</h2>
+                <p class="product-ref">REF: PN-1247</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 4690</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 8.1 gDiamond (Carat): RD,0.21 C VS-GGold Color: YellowResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-1247')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-1247')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-1247')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page mobile-single-page" data-density="soft">
+        <div class="mobile-page-wrap">
+            <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2340_accb5927-8859-4234-bfd0-9f2992f5268d.jpg?v=1757912552')">
+                <div class="vendor-tag">Noi Gioielli</div>
+                <div class="mobile-pnum">
+                    28<span> / 28</span>
+                </div>
+            </div>
+            <div class="mobile-info-panel">
+                <span class="exquisite-label">Exquisite Collection</span>
+                <h2 class="product-title">Mistica Evergreen Enamel Pendant</h2>
+                <p class="product-ref">REF: PN-2340</p>
+                <div class="gold-accent-line"></div>
+                <div class="price-display">QAR 3920</div>
+                <details class="accordion">
+                    <summary>The Piece</summary>
+                    <p>Mystic elegance in enamel with diamonds —a statement accent piece.</p>
+                </details>
+                <details class="accordion">
+                    <summary>Details</summary>
+                    <p>Gold Weight: 2.77 gDiamond (Carat): RD 0.15 CT, VS-GGold Color: RoseResizable: NoMade In: Italy</p>
+                </details>
+                <div class="slide-actions">
+                    <button onclick="sendAction('Availability', 'PN-2340')" class="btn btn-primary">Check Availability</button>
+                    <div class="btn-split">
+                        <button onclick="sendAction('Ask Price', 'PN-2340')" class="btn btn-secondary">Ask Price</button>
+                        <button onclick="sendAction('Advisor', 'PN-2340')" class="btn btn-secondary">Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+
+        <!-- Tap-to-flip arrows: sit over the image panel, never block text -->
+        <button id="mobile-prev" class="mobile-nav-btn prev" aria-label="Previous">&#8249;</button>
+        <button id="mobile-next" class="mobile-nav-btn next" aria-label="Next">&#8250;</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+    <script>
+        window.onload = () => {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            // ─────────────────────────────────────────────────────────────
+            // DESKTOP  (> 900px)  ·  two-page spread, dynamic dimensions
+            // ─────────────────────────────────────────────────────────────
+            if (vw > 900) {
+                const SPREAD_RATIO = 733 / 1100;
+                const maxW = Math.floor(vw * 0.90);
+                const maxH = Math.floor(vh * 0.90);
+
+                let bookW = maxW;
+                let bookH = Math.round(bookW * SPREAD_RATIO);
+                if (bookH > maxH) { bookH = maxH; bookW = Math.round(bookH / SPREAD_RATIO); }
+                if (bookW % 2 !== 0) bookW--;
+                const pageW = bookW / 2;
+
+                const flipbookEl = document.getElementById('flipbook');
+                flipbookEl.style.width  = bookW + 'px';
+                flipbookEl.style.height = bookH + 'px';
+
+                document.querySelectorAll('.desktop-wrapper .page').forEach(p => {
+                    p.style.width  = pageW + 'px';
+                    p.style.height = bookH + 'px';
+                });
+
+                const pf = new St.PageFlip(flipbookEl, {
+                    width: pageW, height: bookH,
+                    minWidth: pageW, minHeight: bookH,
+                    maxWidth: pageW, maxHeight: bookH,
+                    size: 'fixed',
+                    showCover: true,
+                    mobileScrollSupport: false,
+                    useMouseEvents: true
+                });
+                pf.loadFromHTML(document.querySelectorAll('.desktop-wrapper .page'));
+
+            // ─────────────────────────────────────────────────────────────
+            // MOBILE / TABLET  (≤ 900px)  ·  portrait single-page flipbook
+            //
+            // PageFlip runs in single-page mode when page width = container
+            // width (nothing to show beside it). usePortrait:true enables the
+            // auto-switch to portrait so the cover is also shown alone.
+            //
+            // Why this works in Chrome DevTools AND real devices:
+            // useMouseEvents:true means desktop mouse drag also triggers flips,
+            // so resizing a browser window ≤ 900px works the same as a phone.
+            // ─────────────────────────────────────────────────────────────
+            } else {
+                const mobileEl = document.getElementById('mobile-flipbook');
+                mobileEl.style.width  = vw + 'px';
+                mobileEl.style.height = vh + 'px';
+
+                document.querySelectorAll('.mobile-wrapper .page').forEach(p => {
+                    p.style.width  = vw + 'px';
+                    p.style.height = vh + 'px';
+                });
+
+                const mf = new St.PageFlip(mobileEl, {
+                    width: vw, height: vh,
+                    minWidth: vw, minHeight: vh,
+                    maxWidth: vw, maxHeight: vh,
+                    size: 'fixed',
+                    usePortrait: true,
+                    showCover: true,
+                    mobileScrollSupport: false,
+                    useMouseEvents: false,
+                    flippingTime: 650
+                });
+
+                mf.loadFromHTML(document.querySelectorAll('.mobile-wrapper .page'));
+
+                // Hide prev arrow on the cover page
+                document.body.classList.add('on-cover');
+                mf.on('flip', (e) => {
+                    document.body.classList.toggle('on-cover', e.data === 0);
+                });
+
+                // Edge-tap zones: left 60px = prev, right 60px = next
+                mobileEl.addEventListener('click', (e) => {
+                    const x = e.clientX;
+                    if (x < 60) mf.flipPrev();
+                    else if (x > vw - 60) mf.flipNext();
+                });
+
+                // Tap-to-flip arrows
+                document.getElementById('mobile-prev').addEventListener('click', () => mf.flipPrev());
+                document.getElementById('mobile-next').addEventListener('click', () => mf.flipNext());
+            }
+        };
+
+        function sendAction(type, code) {
+            fetch('https://n8n.srv1138489.hstgr.cloud/webhook/weblink-buttons', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: type, product: code })
+            }).then(() => alert('Request sent for ' + code));
+        }
+    </script>
+</body>
+</html>
+    
