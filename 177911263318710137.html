@@ -1,0 +1,1531 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@300;400&display=swap" rel="stylesheet">
+    <title>Collection | Blue Diamond Jewellery</title>
+    <style>
+        :root {
+            --gold: #C5A059;
+            --black: #0a0a0a;
+            --paper: #fcfaf7;
+            --muted: #999;
+            --border: #e8e2d9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #000;
+            font-family: 'Times New Roman', Times, serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ── Shared Typography ────────────────────────── */
+        .exquisite-label {
+            display: block;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            margin-bottom: 10px;
+        }
+        .product-title {
+            color: #111;
+            font-weight: normal;
+            font-size: 1.35rem;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+        .product-ref {
+            color: var(--muted);
+            font-size: 0.55rem;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .gold-accent-line {
+            width: 36px; height: 1px;
+            background: var(--gold);
+            margin: 18px 0;
+        }
+        .gold-accent-line.centered { margin: 18px auto; }
+
+        /* ── Shared Buttons ──────────────────────────── */
+        .btn {
+            padding: 14px;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+            font-family: sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+        }
+        .btn-primary {
+            width: 100%;
+            background: var(--black);
+            color: #fff;
+            border-color: var(--black);
+            margin-bottom: 9px;
+        }
+        .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+
+        /* ── Vendor tags ─────────────────────────────── */
+        .vendor-tag, .vendor-overlay-box {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: #fff;
+            padding: 7px 14px;
+            color: var(--gold);
+            font-family: sans-serif;
+            font-size: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #f0ece6;
+            z-index: 5;
+        }
+
+        /* ── Accordions (mobile only) ──────────────────── */
+        .accordion { border-top: 1px solid var(--border); }
+        .accordion:last-of-type { border-bottom: 1px solid var(--border); }
+        .accordion summary {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            font-family: sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+        }
+        .accordion summary::-webkit-details-marker { display: none; }
+        .accordion summary::after { content: '+'; font-size: 1rem; }
+        .accordion[open] summary::after { content: '−'; }
+        .accordion p {
+            font-size: 0.78rem;
+            color: #666;
+            line-height: 1.65;
+            padding-bottom: 12px;
+        }
+
+        /* ═══════════════════════════════════════════════
+           LUXURY COVER & CHAPTERS
+        ═══════════════════════════════════════════════ */
+        .cover-page, .chapter-cover {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%; height: 100%;
+            position: relative;
+            overflow: hidden;
+            background: #080706;
+        }
+        .cover-vignette, .chapter-vignette {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 78% 72% at 50% 46%, transparent 0%, rgba(6,5,4,0.4) 50%, rgba(0,0,0,0.88) 100%);
+            z-index: 2; pointer-events: none;
+        }
+        .chapter-content {
+            position: relative; z-index: 10;
+            text-align: center; color: #fff; padding: 0 40px;
+        }
+        .chapter-label {
+            font-family: sans-serif; font-size: 0.6rem;
+            letter-spacing: 4px; color: var(--gold);
+            text-transform: uppercase; display: block; margin-bottom: 15px;
+        }
+        .chapter-title {
+            font-family: 'Cinzel', serif; font-size: 2.2rem;
+            font-weight: 300; letter-spacing: 6px; margin-bottom: 10px;
+        }
+        .chapter-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-size: 1.1rem; color: #ccc;
+        }
+        .chapter-hero {
+            background-size: cover; background-position: center;
+            position: relative; height: 100%;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7));
+        }
+        .hero-text {
+            position: absolute; bottom: 40px; left: 40px;
+            color: #fff; font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-size: 1.4rem; z-index: 5;
+        }
+        .cover-page::before, .chapter-cover::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 24px; height: 100%;
+            background: linear-gradient(to right, #0a0806 0%, #3d2d14 38%, #2a1f0d 65%, #060503 100%);
+            border-right: 1px solid rgba(197,160,89,0.4);
+            box-shadow: inset -2px 0 10px rgba(0,0,0,0.8), 2px 0 15px rgba(197,160,89,0.1);
+            z-index: 6; pointer-events: none;
+        }
+        .cover-content {
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+            padding: 0 52px; width: 100%;
+        }
+        .cover-logo-hero {
+            width: 80px; height: auto; margin-bottom: 26px;
+            filter: brightness(0) invert(1) sepia(1) saturate(0.4) brightness(1.1) drop-shadow(0 0 22px rgba(197,160,89,0.28));
+        }
+        .cov-ornament { display: flex; align-items: center; width: 190px; margin: 22px auto; }
+        .cov-ornament.narrow { width: 130px; margin: 18px auto; }
+        .cov-orn-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(197,160,89,0.6)); }
+        .cov-orn-line.r { background: linear-gradient(90deg, rgba(197,160,89,0.6), transparent); }
+        .cov-orn-pip { width: 5px; height: 5px; border: 1px solid rgba(197,160,89,0.78); transform: rotate(45deg); margin: 0 10px; flex-shrink: 0; }
+        .cov-t-blue {
+            font-family: 'Cormorant Garamond', 'Times New Roman', Times, serif;
+            font-weight: 300; font-size: clamp(2.2rem, 5vw, 3.5rem);
+            letter-spacing: clamp(10px, 2vw, 18px); text-indent: 18px;
+            line-height: 0.92; margin: 0; color: #f0e8d8;
+            text-shadow: 0 0 80px rgba(197,160,89,0.12);
+        }
+        .cov-t-diamond {
+            font-family: 'Cinzel', 'Times New Roman', Times, serif;
+            font-weight: 300; font-size: clamp(2.2rem, 5vw, 3.5rem);
+            letter-spacing: clamp(10px, 2vw, 18px); text-indent: 18px;
+            line-height: 1.15; margin: 8px 0 0;
+            background: linear-gradient(100deg, #8a6020 0%, #c8a060 18%, #f0d898 42%, #fce8a8 50%, #f0d898 58%, #c8a060 78%, #8a6020 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: goldShimmer 5s ease-in-out infinite;
+        }
+        @keyframes goldShimmer {
+            0%, 100% { background-position: 100% 0; }
+            50%       { background-position: 0% 0; }
+        }
+        .cov-jewellery {
+            font-family: sans-serif; font-size: 0.7rem; letter-spacing: 8px;
+            color: rgba(255,255,255,0.95); font-weight: 300; margin: 0;
+            text-transform: uppercase; text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+        .cover-invite {
+            position: absolute;
+            bottom: max(36px, calc(env(safe-area-inset-bottom, 0px) + 28px));
+            z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 14px;
+        }
+        .cover-invite-line { display: flex; align-items: center; gap: 16px; }
+        .cover-invite-rule { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, rgba(197,160,89,0.8)); }
+        .cover-invite-rule.right { background: linear-gradient(90deg, rgba(197,160,89,0.8), transparent); }
+        .cover-invite p { font-family: sans-serif; font-size: 0.55rem; letter-spacing: 3px; color: rgba(197,160,89,0.9); text-transform: uppercase; }
+        .chevron-pair { display: flex; gap: 4px; }
+        .cover-chevron { width: 10px; height: 10px; border-right: 1.5px solid rgba(197,160,89,0.8); border-bottom: 1.5px solid rgba(197,160,89,0.8); transform: rotate(-45deg); animation: chevDriftH 2s infinite; }
+        .cover-chevron:nth-child(2) { animation-delay: 0.3s; }
+        @keyframes chevDriftH {
+            0%, 100% { opacity: 0.3; transform: rotate(-45deg) translate(0, 0); }
+            50%       { opacity: 1.0; transform: rotate(-45deg) translate(6px, 0); }
+        }
+
+        /* ═══════════════════════════════════════════════
+           DESKTOP › Two-page flipbook (> 900px)
+        ═══════════════════════════════════════════════ */
+        @media (min-width: 901px) {
+            .mobile-wrapper { display: none; }
+
+            .desktop-wrapper {
+                width: 100vw; height: 100vh;
+                display: flex; justify-content: center; align-items: center;
+                background: #080808;
+                background-image: radial-gradient(ellipse 60% 30% at 50% 85%, rgba(197,160,89,0.04) 0%, transparent 70%);
+                overflow: hidden;
+            }
+            #flipbook {
+                flex-shrink: 0;
+                filter:
+                    drop-shadow(-10px 0 28px rgba(197,160,89,0.10))
+                    drop-shadow(10px 0 28px rgba(197,160,89,0.07))
+                    drop-shadow(0 12px 40px rgba(0,0,0,0.98))
+                    drop-shadow(0 -4px 20px rgba(0,0,0,0.9));
+            }
+            .page { background: #fff; overflow: hidden; }
+
+            /* CHANGE 2: desktop details side — scrollable, all content visible */
+            .details-side {
+                padding: 40px 50px;
+                background: var(--paper);
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                border-right: 1px solid #eee;
+                position: relative;
+                overflow-y: auto;
+            }
+            .details-side .inner {
+                margin: auto 0;
+                display: flex;
+                flex-direction: column;
+                min-height: min-content;
+            }
+            .page-header-row {
+                display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px;
+            }
+            .page-counter { font-family: 'Cinzel', serif; font-size: 0.7rem; color: #bbb; letter-spacing: 2px; }
+            .page-counter em { font-style: normal; color: var(--gold); margin: 0 3px; }
+
+            /* Narrative content (always visible on desktop) */
+            .narrative-box { margin-bottom: 10px; }
+            .narrative-section-label {
+                font-family: sans-serif;
+                font-size: 0.52rem;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: var(--gold);
+                display: block;
+                margin-bottom: 8px;
+            }
+            .narrative-body {
+                font-size: 0.78rem;
+                color: #666;
+                line-height: 1.7;
+                margin-bottom: 14px;
+            }
+            .narrative-divider {
+                height: 1px;
+                background: var(--border);
+                margin: 14px 0 18px;
+            }
+
+            .image-side {
+                height: 100%;
+                background-size: contain; background-repeat: no-repeat; background-position: center;
+                background-color: #fff; position: relative;
+            }
+            .price-container {
+                font-size: 1.8rem; margin: 20px 0 18px;
+                border-top: 1px solid #eee; padding-top: 16px; color: #000;
+            }
+            .center-spine-shadow {
+                position: absolute; left: 0;
+                width: 40px; height: 100%;
+                background: linear-gradient(to right, rgba(0,0,0,0.06), transparent);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+           MOBILE / TABLET › Single-page flipbook (≤ 900px)
+        ═══════════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .desktop-wrapper { display: none; }
+
+            .mobile-wrapper {
+                width: 100vw; height: 100vh;
+                display: flex; justify-content: center; align-items: center;
+                background: #0a0a0a; overflow: hidden; position: relative;
+            }
+            #mobile-flipbook {
+                flex-shrink: 0;
+                filter:
+                    drop-shadow(-6px 0 20px rgba(197,160,89,0.10))
+                    drop-shadow(6px 0 20px rgba(197,160,89,0.07));
+            }
+            .mobile-single-page { background: #fff; overflow: visible; }
+            .mobile-page-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden; }
+            .mobile-img-panel {
+                flex: 0 0 38%;
+                background-size: contain; background-repeat: no-repeat; background-position: center;
+                background-color: #fff; position: relative; border-bottom: 1px solid var(--border);
+            }
+            .mobile-pnum {
+                position: absolute; bottom: 10px; right: 14px;
+                font-family: sans-serif; font-size: 0.9rem; color: #bbb; letter-spacing: 1px; line-height: 1;
+            }
+            .mobile-pnum span { font-size: 0.48rem; letter-spacing: 2px; color: #ccc; }
+            .mobile-info-panel {
+                flex: 1; min-height: 0; overflow-y: scroll;
+                -webkit-overflow-scrolling: touch; touch-action: pan-y;
+                padding: 18px 22px;
+                padding-bottom: max(80px, calc(env(safe-area-inset-bottom, 0px) + 64px));
+                background: var(--paper);
+            }
+            .price-display { font-size: 1.3rem; color: #111; margin-bottom: 16px; }
+            .slide-actions { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 16px; }
+            .mobile-nav-btn {
+                position: fixed; top: 65%; transform: translateY(-50%); z-index: 200;
+                width: 60px; height: 54px; background: rgba(10,10,10,0.45);
+                border: 1px solid rgba(197,160,89,0.35); color: rgba(197,160,89,0.9);
+                font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
+                cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+                transition: background 0.2s; touch-action: none;
+            }
+            .mobile-nav-btn:hover { background: rgba(197,160,89,0.25); }
+            .mobile-nav-btn.prev { left: 0; border-left: none; border-radius: 0 4px 4px 0; }
+            .mobile-nav-btn.next { right: 0; border-right: none; border-radius: 4px 0 0 4px; }
+            body.on-cover .mobile-nav-btn.prev { opacity: 0; pointer-events: none; }
+        }
+
+        /* ═══════════════════════════════════════════════
+           CHANGE 3: Multi-step Brand Browser Modal
+        ═══════════════════════════════════════════════ */
+        .custom-modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(14px);
+        }
+        .modal-shell {
+            background: #0d0b09;
+            border: 1px solid rgba(197,160,89,0.2);
+            max-width: 460px; width: 92%;
+            max-height: 88vh;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 100px rgba(0,0,0,0.9), 0 0 40px rgba(197,160,89,0.04);
+        }
+        /* Subtle corner accents */
+        .modal-shell::before, .modal-shell::after {
+            content: '';
+            position: absolute; width: 20px; height: 20px;
+            border-color: rgba(197,160,89,0.5);
+            border-style: solid;
+            z-index: 10; pointer-events: none;
+        }
+        .modal-shell::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+        .modal-shell::after  { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+
+        /* Shared close button */
+        .modal-close-x {
+            position: absolute; top: 14px; right: 18px;
+            font-size: 1.2rem; color: rgba(197,160,89,0.5);
+            cursor: pointer; font-family: sans-serif; z-index: 20;
+            line-height: 1; transition: color 0.2s;
+        }
+        .modal-close-x:hover { color: var(--gold); }
+
+        /* Each step panel */
+        .modal-step {
+            padding: 38px 36px 32px;
+            overflow-y: auto;
+            max-height: 88vh;
+        }
+        .modal-step.hidden { display: none; }
+
+        /* Step header */
+        .modal-eyebrow {
+            font-family: sans-serif; font-size: 0.5rem;
+            letter-spacing: 4px; color: rgba(197,160,89,0.55);
+            text-transform: uppercase; margin-bottom: 8px;
+        }
+        .modal-heading {
+            font-family: 'Cinzel', serif; font-size: 1.25rem;
+            font-weight: 300; letter-spacing: 3px;
+            color: #f0e8d8; margin-bottom: 20px;
+        }
+        .modal-gold-rule {
+            width: 32px; height: 1px;
+            background: var(--gold); opacity: 0.6;
+            margin-bottom: 22px;
+        }
+
+        /* Back button */
+        .modal-back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: sans-serif; font-size: 0.5rem;
+            letter-spacing: 3px; color: rgba(197,160,89,0.55);
+            text-transform: uppercase; cursor: pointer;
+            margin-bottom: 22px; background: none; border: none;
+            padding: 0; transition: color 0.2s;
+        }
+        .modal-back-btn:hover { color: var(--gold); }
+
+        /* ── Brand List ── */
+        .brand-list-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(197,160,89,0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .brand-list-item:first-child { border-top: 1px solid rgba(197,160,89,0.1); }
+        .brand-list-item:hover .brand-item-name { color: var(--gold); }
+        .brand-list-item:hover .brand-item-arrow { transform: translateX(5px); color: var(--gold); }
+        .brand-list-item.active-brand .brand-item-name { color: var(--gold); }
+
+        .brand-item-number {
+            font-family: 'Cinzel', serif; font-size: 0.5rem;
+            color: rgba(197,160,89,0.3); letter-spacing: 2px;
+            width: 22px; flex-shrink: 0;
+        }
+        .brand-item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.22rem; color: #d8d0c4; flex: 1;
+            transition: color 0.2s; font-style: italic;
+        }
+        .brand-item-name em { font-style: normal; font-size: 1rem; color: rgba(197,160,89,0.6); }
+        .brand-item-arrow {
+            color: rgba(197,160,89,0.3); font-size: 0.75rem;
+            font-family: sans-serif; letter-spacing: -1px;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        /* ── Product List ── */
+        .product-list-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(197,160,89,0.08);
+            cursor: pointer; transition: background 0.15s;
+        }
+        .product-list-item:first-child { border-top: 1px solid rgba(197,160,89,0.08); }
+        .product-list-item:hover .product-item-name { color: #f0e8d8; }
+        .product-list-item.selected-product .product-item-name { color: var(--gold); }
+        .product-list-item.selected-product .product-check { opacity: 1; }
+
+        .product-item-info { flex: 1; }
+        .product-item-name {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+            color: #b8b0a4; line-height: 1.3; transition: color 0.2s;
+            display: block; margin-bottom: 3px;
+        }
+        .product-item-code {
+            font-family: sans-serif; font-size: 0.48rem;
+            color: rgba(197,160,89,0.4); letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .product-check {
+            font-size: 0.7rem; color: var(--gold);
+            opacity: 0; transition: opacity 0.2s;
+            margin-top: 4px; flex-shrink: 0;
+        }
+
+        .no-products-note {
+            font-family: 'Cormorant Garamond', serif; font-style: italic;
+            font-size: 0.95rem; color: rgba(255,255,255,0.3);
+            padding: 20px 0; text-align: center;
+        }
+        .skip-product-link {
+            display: block; margin-top: 20px;
+            font-family: sans-serif; font-size: 0.5rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: rgba(197,160,89,0.4); cursor: pointer;
+            text-align: center; background: none; border: none;
+            width: 100%; padding: 10px 0; transition: color 0.2s;
+        }
+        .skip-product-link:hover { color: var(--gold); }
+
+        /* ── Form Step ── */
+        .selection-summary {
+            background: rgba(197,160,89,0.05);
+            border: 1px solid rgba(197,160,89,0.15);
+            padding: 14px 18px; margin-bottom: 22px;
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .summary-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+        .summary-key { font-family: sans-serif; font-size: 0.48rem; letter-spacing: 3px; color: rgba(197,160,89,0.55); text-transform: uppercase; flex-shrink: 0; }
+        .summary-val { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: #d8d0c4; font-style: italic; text-align: right; }
+
+        .smart-form { display: flex; flex-direction: column; gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-family: sans-serif; font-size: 0.58rem; color: rgba(197,160,89,0.7); text-transform: uppercase; letter-spacing: 2px; }
+        .form-group input, .form-group select {
+            padding: 11px 12px; border: 1px solid rgba(197,160,89,0.2);
+            background: rgba(255,255,255,0.04); color: #e0d8cc;
+            font-family: sans-serif; font-size: 0.82rem; outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input::placeholder { color: rgba(255,255,255,0.2); }
+        .form-group input:focus, .form-group select:focus { border-color: rgba(197,160,89,0.55); }
+        .form-group select { color: #e0d8cc; }
+        .form-group select option { background: #1a1612; color: #e0d8cc; }
+        .phone-input-container { display: flex; gap: 6px; }
+        .phone-input-container select { flex: 0 0 96px; font-size: 0.72rem; }
+        .phone-input-container input { flex: 1; }
+        .optional-tag { font-size: 0.5rem; color: rgba(197,160,89,0.3); text-transform: none; letter-spacing: 0; margin-left: 4px; }
+        .form-submit {
+            margin-top: 6px; background: rgba(197,160,89,0.12);
+            color: var(--gold); border: 1px solid rgba(197,160,89,0.4);
+            padding: 14px; font-family: sans-serif; font-size: 0.6rem;
+            letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .form-submit:hover { background: var(--gold); color: #0a0806; }
+
+        /* Confirmation */
+        .modal-confirm-content { text-align: center; padding: 10px 0 20px; }
+        .modal-confirm-icon { font-size: 1.5rem; color: var(--gold); margin-bottom: 16px; opacity: 0.7; }
+        .modal-confirm-title { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 300; color: #f0e8d8; letter-spacing: 3px; margin-bottom: 12px; }
+        .modal-confirm-msg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: #a09880; line-height: 1.6; margin-bottom: 24px; }
+        .modal-dismiss { background: none; border: 1px solid rgba(197,160,89,0.3); color: rgba(197,160,89,0.6); padding: 10px 28px; font-family: sans-serif; font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+        .modal-dismiss:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Smart form styles */
+        .smart-form-wrap { display: flex; flex-direction: column; gap: 14px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- ══════════════ DESKTOP: Two-page flipbook ══════════════ -->
+    <div class="desktop-wrapper">
+        <div id="flipbook">
+            <div class="page" data-density="hard">
+                <div class="page-content cover-page">
+                    
+<div class="cover-page">
+    <div class="cover-vignette"></div>
+    <div class="cover-content">
+        <img src="https://res.cloudinary.com/daucolvng/image/upload/f_auto,q_auto/BD_Logo_d4gza1"
+             alt="Blue Diamond" class="cover-logo-hero" />
+        <div class="cov-ornament">
+            <div class="cov-orn-line"></div>
+            <div class="cov-orn-pip"></div>
+            <div class="cov-orn-line r"></div>
+        </div>
+        <h1 class="cov-t-blue">BLUE</h1>
+        <h1 class="cov-t-diamond">DIAMOND</h1>
+        <div class="cov-ornament narrow">
+            <div class="cov-orn-line"></div>
+            <div class="cov-orn-pip"></div>
+            <div class="cov-orn-line r"></div>
+        </div>
+        <p class="cov-jewellery">J E W E L L E R Y</p>
+    </div>
+    <div class="cover-invite">
+        <div class="cover-invite-line">
+            <div class="cover-invite-rule"></div>
+            <p>Swipe to explore the collection</p>
+            <div class="cover-invite-rule right"></div>
+        </div>
+        <div class="chevron-pair"><div class="cover-chevron horizontal"></div><div class="cover-chevron horizontal"></div></div>
+    </div>
+</div>
+                </div>
+            </div>
+            
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">STELLA</span>
+                        <span class="page-counter">01 <em>/</em> 01</span>
+                    </div>
+                    <h2 class="product-title">Stella Diamond Pendant, S Model</h2>
+                    <p class="product-ref">Model: PN-3583</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">Inspired by a star-shaped bloom, the Stella Collection features earrings, pendant, ring, and bracelet in rose gold with pavé diamonds. Elegant, luminous, and easy to wear as a matching set or individual statement piece.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Bijouq</strong><br><br>Gold Weight: 5.538 G<br>Diamond (Carat): VS-G 0.24. <br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 9850</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','PN-3583','Stella Diamond Pendant, S Model','Bijouq')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-3583.png?v=1777532411')">
+                <div class="vendor-overlay-box">Bijouq</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">ROSE</span>
+                        <span class="page-counter">01 <em>/</em> 01</span>
+                    </div>
+                    <h2 class="product-title">Rose Collection Coral Pendant, Small</h2>
+                    <p class="product-ref">Model: PN-2555</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">Rose Collection Coral Pendant, Small, designed in 18KP gold, with a weight of 6.22 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Bijouq</strong><br><br>Gold Weight: 6.22 G<br>Diamond (Carat): RD 0.51 CT, VS-G. CO 0.75 CT<br>Gold Color: Rose<br>Resizable: Yes<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 8550</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','PN-2555','Rose Collection Coral Pendant, Small','Bijouq')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2555_8d7faa6a-2e61-4837-b93b-e1bdd51fe402.jpg?v=1771780650')">
+                <div class="vendor-overlay-box">Bijouq</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">ONDA</span>
+                        <span class="page-counter">01 <em>/</em> 01</span>
+                    </div>
+                    <h2 class="product-title">Onda Enamel Pendant, Rose Gold</h2>
+                    <p class="product-ref">Model: PN-2820</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Noi Gioielli</strong><br><br>Gold Weight: 7.15 g<br>Diamond (Carat): RD 0.27 CT, VS-G<br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 10720</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','PN-2820','Onda Enamel Pendant, Rose Gold','Noi Gioielli')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561')">
+                <div class="vendor-overlay-box">Noi Gioielli</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">INCANTO</span>
+                        <span class="page-counter">01 <em>/</em> 01</span>
+                    </div>
+                    <h2 class="product-title">Incanto Multi Coloured Pendant</h2>
+                    <p class="product-ref">Model: PN-1387</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">Enchanting colors in enamel with diamonds —a statement accent piece.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Noi Gioielli</strong><br><br>Gold Weight: 9.668 g<br>Diamond (Carat): RD 0.16 CT, VS-G<br>Gold Color: White<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 11052</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','PN-1387','Incanto Multi Coloured Pendant','Noi Gioielli')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1387_7eaab1c4-272c-4482-9586-332ae637c698.jpg?v=1757912557')">
+                <div class="vendor-overlay-box">Noi Gioielli</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">NATURA</span>
+                        <span class="page-counter">01 <em>/</em> 01</span>
+                    </div>
+                    <h2 class="product-title">Natura Necklace- Malachite & Diamonds</h2>
+                    <p class="product-ref">Model: NK-2063</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">A singular expression of artistry and flair.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Luca Carati</strong><br><br>Gold Weight: 6.06 G <br>Diamond (Carat): RD 0.71 CT, VVS-G. MC 1.10 G<br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 12348</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','NK-2063','Natura Necklace- Malachite & Diamonds','Luca Carati')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2063_cd5a7591-0624-4cf7-bbc9-4280f6e5c741.jpg?v=1754718841')">
+                <div class="vendor-overlay-box">Luca Carati</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">ART DECO</span>
+                        <span class="page-counter">01 <em>/</em> 02</span>
+                    </div>
+                    <h2 class="product-title">Art Deco Star Necklace</h2>
+                    <p class="product-ref">Model: NK-2503</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">A cascade of polished elegance draped in timeless charm.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Luca Carati</strong><br><br>Gold Weight: 4.79 G<br>Diamond (Carat): RD 0.53 CT, VVS-G <br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 8775</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','NK-2503','Art Deco Star Necklace','Luca Carati')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2503_d612fd3f-98d5-414c-824a-8ed07009ad12.jpg?v=1754718837')">
+                <div class="vendor-overlay-box">Luca Carati</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">ART DECO</span>
+                        <span class="page-counter">02 <em>/</em> 02</span>
+                    </div>
+                    <h2 class="product-title">Art Deco Necklace- White Gold</h2>
+                    <p class="product-ref">Model: NK-2593</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">Crafted to contour graceâ€”where geometry meets poetry.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Luca Carati</strong><br><br>Gold Weight: 5.54 G<br>Diamond (Carat): RD 0.3CT, VVS-G <br>Gold Color: White<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 7650</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','NK-2593','Art Deco Necklace- White Gold','Luca Carati')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2593_d425fa8b-ad72-4d5b-9416-ffaa1901dc14.jpg?v=1754718832')">
+                <div class="vendor-overlay-box">Luca Carati</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        <div class="page" data-density="soft">
+            <div class="page-content details-side">
+                <div class="inner">
+                    <div class="page-header-row">
+                        <span class="exquisite-label">COCCOPELLI</span>
+                        <span class="page-counter">01 <em>/</em> 01</span>
+                    </div>
+                    <h2 class="product-title">Coccopelli Malachite Pendant, Small</h2>
+                    <p class="product-ref">Model: PN-2150</p>
+                    <div class="gold-accent-line"></div>
+
+                    <div class="narrative-box">
+                        <p class="narrative-section-label">The Piece</p>
+                        <p class="narrative-body">Coccopelli Malachite Pendant - Small designed in 18KP gold, with a weight of 10.05 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.</p>
+                        <div class="narrative-divider"></div>
+                        <p class="narrative-section-label">Details</p>
+                        <p class="narrative-body"><strong>Bijouq</strong><br><br>Gold Weight: 10.05 G<br>Diamond (Carat): RD 0.32 CT,VS-G. MP/MN 4.75 CT<br>Gold Color: Rose<br>Resizable: Yes<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.</p>
+                    </div>
+
+                    <div class="price-container">QAR 11900</div>
+                    <div class="button-group">
+                        <button onclick="handleAdvisorClick('Advisor','PN-2150','Coccopelli Malachite Pendant, Small','Bijouq')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" data-density="soft">
+            <div class="page-content image-side" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2150.jpg?v=1751271558')">
+                <div class="vendor-overlay-box">Bijouq</div>
+                <div class="center-spine-shadow"></div>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+
+    <!-- ══════════════ MOBILE / TABLET: Single-page flipbook ══════════════ -->
+    <div class="mobile-wrapper">
+        <div id="mobile-flipbook">
+            <div class="page" data-density="hard">
+                <div class="cover-page" id="mobile-cover">
+                    
+<div class="cover-page">
+    <div class="cover-vignette"></div>
+    <div class="cover-content">
+        <img src="https://res.cloudinary.com/daucolvng/image/upload/f_auto,q_auto/BD_Logo_d4gza1"
+             alt="Blue Diamond" class="cover-logo-hero" />
+        <div class="cov-ornament">
+            <div class="cov-orn-line"></div>
+            <div class="cov-orn-pip"></div>
+            <div class="cov-orn-line r"></div>
+        </div>
+        <h1 class="cov-t-blue">BLUE</h1>
+        <h1 class="cov-t-diamond">DIAMOND</h1>
+        <div class="cov-ornament narrow">
+            <div class="cov-orn-line"></div>
+            <div class="cov-orn-pip"></div>
+            <div class="cov-orn-line r"></div>
+        </div>
+        <p class="cov-jewellery">J E W E L L E R Y</p>
+    </div>
+    <div class="cover-invite">
+        <div class="cover-invite-line">
+            <div class="cover-invite-rule"></div>
+            <p>Flip the page to discover the collection</p>
+            <div class="cover-invite-rule right"></div>
+        </div>
+        <div class="chevron-pair"><div class="cover-chevron horizontal"></div><div class="cover-chevron horizontal"></div></div>
+    </div>
+</div>
+                </div>
+            </div>
+            
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-3583.png?v=1777532411')">
+                    <div class="vendor-tag">Bijouq</div>
+                    <div class="mobile-pnum">
+                        01<span> / 01</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Stella</span>
+                    <h2 class="product-title">Stella Diamond Pendant, S Model</h2>
+                    <p class="product-ref">REF: PN-3583</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 9850</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>Inspired by a star-shaped bloom, the Stella Collection features earrings, pendant, ring, and bracelet in rose gold with pavé diamonds. Elegant, luminous, and easy to wear as a matching set or individual statement piece.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Bijouq</strong><br><br>
+                            Gold Weight: 5.538 G<br>Diamond (Carat): VS-G 0.24. <br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','PN-3583','Stella Diamond Pendant, S Model','Bijouq')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2555_8d7faa6a-2e61-4837-b93b-e1bdd51fe402.jpg?v=1771780650')">
+                    <div class="vendor-tag">Bijouq</div>
+                    <div class="mobile-pnum">
+                        01<span> / 01</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Rose</span>
+                    <h2 class="product-title">Rose Collection Coral Pendant, Small</h2>
+                    <p class="product-ref">REF: PN-2555</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 8550</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>Rose Collection Coral Pendant, Small, designed in 18KP gold, with a weight of 6.22 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Bijouq</strong><br><br>
+                            Gold Weight: 6.22 G<br>Diamond (Carat): RD 0.51 CT, VS-G. CO 0.75 CT<br>Gold Color: Rose<br>Resizable: Yes<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','PN-2555','Rose Collection Coral Pendant, Small','Bijouq')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561')">
+                    <div class="vendor-tag">Noi Gioielli</div>
+                    <div class="mobile-pnum">
+                        01<span> / 01</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Onda</span>
+                    <h2 class="product-title">Onda Enamel Pendant, Rose Gold</h2>
+                    <p class="product-ref">REF: PN-2820</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 10720</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>Wave?inspired flow in enamel with diamonds —a statement accent piece.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Noi Gioielli</strong><br><br>
+                            Gold Weight: 7.15 g<br>Diamond (Carat): RD 0.27 CT, VS-G<br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','PN-2820','Onda Enamel Pendant, Rose Gold','Noi Gioielli')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1387_7eaab1c4-272c-4482-9586-332ae637c698.jpg?v=1757912557')">
+                    <div class="vendor-tag">Noi Gioielli</div>
+                    <div class="mobile-pnum">
+                        01<span> / 01</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Incanto</span>
+                    <h2 class="product-title">Incanto Multi Coloured Pendant</h2>
+                    <p class="product-ref">REF: PN-1387</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 11052</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>Enchanting colors in enamel with diamonds —a statement accent piece.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Noi Gioielli</strong><br><br>
+                            Gold Weight: 9.668 g<br>Diamond (Carat): RD 0.16 CT, VS-G<br>Gold Color: White<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','PN-1387','Incanto Multi Coloured Pendant','Noi Gioielli')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2063_cd5a7591-0624-4cf7-bbc9-4280f6e5c741.jpg?v=1754718841')">
+                    <div class="vendor-tag">Luca Carati</div>
+                    <div class="mobile-pnum">
+                        01<span> / 01</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Natura</span>
+                    <h2 class="product-title">Natura Necklace- Malachite & Diamonds</h2>
+                    <p class="product-ref">REF: NK-2063</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 12348</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>A singular expression of artistry and flair.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Luca Carati</strong><br><br>
+                            Gold Weight: 6.06 G <br>Diamond (Carat): RD 0.71 CT, VVS-G. MC 1.10 G<br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','NK-2063','Natura Necklace- Malachite & Diamonds','Luca Carati')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2503_d612fd3f-98d5-414c-824a-8ed07009ad12.jpg?v=1754718837')">
+                    <div class="vendor-tag">Luca Carati</div>
+                    <div class="mobile-pnum">
+                        01<span> / 02</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Art Deco</span>
+                    <h2 class="product-title">Art Deco Star Necklace</h2>
+                    <p class="product-ref">REF: NK-2503</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 8775</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>A cascade of polished elegance draped in timeless charm.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Luca Carati</strong><br><br>
+                            Gold Weight: 4.79 G<br>Diamond (Carat): RD 0.53 CT, VVS-G <br>Gold Color: Rose<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','NK-2503','Art Deco Star Necklace','Luca Carati')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2593_d425fa8b-ad72-4d5b-9416-ffaa1901dc14.jpg?v=1754718832')">
+                    <div class="vendor-tag">Luca Carati</div>
+                    <div class="mobile-pnum">
+                        02<span> / 02</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Art Deco</span>
+                    <h2 class="product-title">Art Deco Necklace- White Gold</h2>
+                    <p class="product-ref">REF: NK-2593</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 7650</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>Crafted to contour graceâ€”where geometry meets poetry.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Luca Carati</strong><br><br>
+                            Gold Weight: 5.54 G<br>Diamond (Carat): RD 0.3CT, VVS-G <br>Gold Color: White<br>Resizable: No<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','NK-2593','Art Deco Necklace- White Gold','Luca Carati')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page mobile-single-page" data-density="soft">
+            <div class="mobile-page-wrap">
+                <div class="mobile-img-panel" style="background-image: url('https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2150.jpg?v=1751271558')">
+                    <div class="vendor-tag">Bijouq</div>
+                    <div class="mobile-pnum">
+                        01<span> / 01</span>
+                    </div>
+                </div>
+                <div class="mobile-info-panel">
+                    <span class="exquisite-label">Coccopelli</span>
+                    <h2 class="product-title">Coccopelli Malachite Pendant, Small</h2>
+                    <p class="product-ref">REF: PN-2150</p>
+                    <div class="gold-accent-line"></div>
+                    <div class="price-display">QAR 11900</div>
+                    <details class="accordion" open>
+                        <summary>The Piece</summary>
+                        <p>Coccopelli Malachite Pendant - Small designed in 18KP gold, with a weight of 10.05 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.</p>
+                    </details>
+                    <details class="accordion">
+                        <summary>Details</summary>
+                        <p>
+                            <strong>Brand: Bijouq</strong><br><br>
+                            Gold Weight: 10.05 G<br>Diamond (Carat): RD 0.32 CT,VS-G. MP/MN 4.75 CT<br>Gold Color: Rose<br>Resizable: Yes<br>Made In: Italy<br><br>Please note that product descriptions may vary slightly depending on size and craftsmanship variations.
+                        </p>
+                    </details>
+                    <div class="slide-actions">
+                        <button onclick="handleAdvisorClick('Advisor','PN-2150','Coccopelli Malachite Pendant, Small','Bijouq')" class="btn btn-primary">Speak with Advisor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+        <button id="mobile-prev" class="mobile-nav-btn prev" aria-label="Previous">&#8249;</button>
+        <button id="mobile-next" class="mobile-nav-btn next" aria-label="Next">&#8250;</button>
+    </div>
+
+    <!-- CHANGE 3: Multi-step Modal -->
+    <div id="actionModal" class="custom-modal">
+        <div class="modal-shell">
+
+            <!-- Step 1: Brand Selection -->
+            <div class="modal-step" id="step-brands">
+                <span class="modal-close-x" onclick="closeModal()">&times;</span>
+                <p class="modal-eyebrow">Connect with Advisor</p>
+                <h3 class="modal-heading">The Houses</h3>
+                <div class="modal-gold-rule"></div>
+                <div id="brand-list"></div>
+            </div>
+
+            <!-- Step 2: Products within Brand -->
+            <div class="modal-step hidden" id="step-products">
+                <span class="modal-close-x" onclick="closeModal()">&times;</span>
+                <button class="modal-back-btn" onclick="showBrandStep()">&#8592; All Houses</button>
+                <p class="modal-eyebrow" id="step-brand-label"></p>
+                <h3 class="modal-heading">The Pieces</h3>
+                <div class="modal-gold-rule"></div>
+                <div id="product-list"></div>
+                <button class="skip-product-link" onclick="showFormStep()">Continue without selecting a piece</button>
+            </div>
+
+            <!-- Step 3: Contact Form -->
+            <div class="modal-step hidden" id="step-form">
+                <span class="modal-close-x" onclick="closeModal()">&times;</span>
+                <button class="modal-back-btn" id="form-back-btn" onclick="backFromForm()">&#8592; Back</button>
+                <p class="modal-eyebrow">Your Details</p>
+                <h3 class="modal-heading">Request a Consultation</h3>
+                <div class="modal-gold-rule"></div>
+                <div id="form-step-content"></div>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div class="modal-step hidden" id="step-confirm">
+                <span class="modal-close-x" onclick="closeModal()">&times;</span>
+                <div class="modal-confirm-content">
+                    <div class="modal-confirm-icon">&#10022;</div>
+                    <p class="modal-confirm-title">Request Received</p>
+                    <p class="modal-confirm-msg" id="confirm-msg"></p>
+                    <button class="modal-dismiss" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+    <script>
+        // ── Catalog data injected from n8n ──────────────────────────
+        var CATALOG_DATA = [{"code":"PN-3583","name":"Stella Diamond Pendant, S Model","vendor":"Bijouq"},{"code":"PN-2555","name":"Rose Collection Coral Pendant, Small","vendor":"Bijouq"},{"code":"PN-2820","name":"Onda Enamel Pendant, Rose Gold","vendor":"Noi Gioielli"},{"code":"PN-1387","name":"Incanto Multi Coloured Pendant","vendor":"Noi Gioielli"},{"code":"NK-2063","name":"Natura Necklace- Malachite & Diamonds","vendor":"Luca Carati"},{"code":"NK-2503","name":"Art Deco Star Necklace","vendor":"Luca Carati"},{"code":"NK-2593","name":"Art Deco Necklace- White Gold","vendor":"Luca Carati"},{"code":"PN-2150","name":"Coccopelli Malachite Pendant, Small","vendor":"Bijouq"}];
+
+        var BRANDS = [
+            'Bijouq', 'J Jewels', 'Palmyra', 'Noi Gioielli',
+            'Giloro', 'Carlo Barberis', 'Cashmere', 'Luca Carati',
+            'See All Brands'
+        ];
+
+        var modalState = {
+            selectedBrand: null,
+            selectedProductCode: null,
+            selectedProductName: null
+        };
+
+        // ── Device fingerprint ───────────────────────────────────────
+        function getDeviceFingerprint() {
+            var components = [
+                navigator.userAgent, navigator.language,
+                screen.width + 'x' + screen.height, screen.colorDepth,
+                new Date().getTimezoneOffset(),
+                navigator.hardwareConcurrency || '',
+                navigator.deviceMemory || '', navigator.platform || ''
+            ].join('|');
+            var hash = 0;
+            for (var i = 0; i < components.length; i++) {
+                hash = ((hash << 5) - hash) + components.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(36);
+        }
+
+        // ── Flipbook init ────────────────────────────────────────────
+        window.onload = function() {
+            var vw = window.innerWidth;
+            var vh = window.innerHeight;
+
+            if (vw > 900) {
+                var SPREAD_RATIO = 733 / 1100;
+                var maxW = Math.floor(vw * 0.96);
+                var maxH = Math.floor(vh * 0.96);
+                var bookW = maxW;
+                var bookH = Math.round(bookW * SPREAD_RATIO);
+                if (bookH > maxH) { bookH = maxH; bookW = Math.round(bookH / SPREAD_RATIO); }
+                if (bookW % 2 !== 0) bookW--;
+                var pageW = bookW / 2;
+
+                var flipbookEl = document.getElementById('flipbook');
+                flipbookEl.style.width  = bookW + 'px';
+                flipbookEl.style.height = bookH + 'px';
+                flipbookEl.style.margin = '0 auto';
+                flipbookEl.style.position = 'relative';
+
+                document.querySelectorAll('.desktop-wrapper .page').forEach(function(p) {
+                    p.style.width  = pageW + 'px';
+                    p.style.height = bookH + 'px';
+                });
+
+                var pf = new St.PageFlip(flipbookEl, {
+                    width: pageW, height: bookH,
+                    minWidth: pageW, minHeight: bookH,
+                    maxWidth: pageW, maxHeight: bookH,
+                    size: 'fixed', showCover: true, autoSize: false,
+                    drawShadow: true, flippingTime: 1000, usePortrait: false, startPage: 0
+                });
+                pf.loadFromHTML(document.querySelectorAll('.desktop-wrapper .page'));
+
+            } else {
+                var maxW2 = Math.floor(vw * 0.95);
+                var maxH2 = Math.floor(vh * 0.92);
+                var mobileEl = document.getElementById('mobile-flipbook');
+                mobileEl.style.width  = maxW2 + 'px';
+                mobileEl.style.height = maxH2 + 'px';
+
+                document.querySelectorAll('.mobile-wrapper .page').forEach(function(p) {
+                    p.style.width  = maxW2 + 'px';
+                    p.style.height = maxH2 + 'px';
+                });
+
+                var pfMobile = new St.PageFlip(mobileEl, {
+                    width: maxW2, height: maxH2,
+                    minWidth: maxW2, minHeight: maxH2,
+                    maxWidth: maxW2, maxHeight: maxH2,
+                    size: 'fixed', showCover: true, autoSize: false,
+                    drawShadow: true, flippingTime: 800, swipeDistance: 30,
+                    startPage: 0, clickEventForward: false, useMouseEvents: false
+                });
+                pfMobile.loadFromHTML(document.querySelectorAll('.mobile-wrapper .page'));
+
+                document.getElementById('mobile-prev').onclick = function() { pfMobile.flipPrev(); };
+                document.getElementById('mobile-next').onclick = function() { pfMobile.flipNext(); };
+
+                pfMobile.on('flip', function(e) {
+                    if (e.data === 0) document.body.classList.add('on-cover');
+                    else document.body.classList.remove('on-cover');
+                });
+                document.body.classList.add('on-cover');
+            }
+        };
+
+        // ── Modal: Entry point ───────────────────────────────────────
+        function handleAdvisorClick(type, code, name, vendor) {
+            modalState.selectedBrand = vendor || null;
+            modalState.selectedProductCode = code || null;
+            modalState.selectedProductName = name || null;
+            showBrandStep();
+            document.getElementById('actionModal').style.display = 'flex';
+        }
+
+        // ── Step 1: Brand list ───────────────────────────────────────
+        function showBrandStep() {
+            document.getElementById('step-brands').classList.remove('hidden');
+            document.getElementById('step-products').classList.add('hidden');
+            document.getElementById('step-form').classList.add('hidden');
+            document.getElementById('step-confirm').classList.add('hidden');
+
+            var html = '';
+            BRANDS.forEach(function(brand, idx) {
+                var numStr = String(idx + 1).padStart(2, '0');
+                var isActive = (modalState.selectedBrand === brand) ? ' active-brand' : '';
+                var displayName = (brand === 'See All Brands')
+                    ? '<em>' + brand + '</em>'
+                    : brand;
+                html += '<div class="brand-list-item' + isActive + '" onclick="selectBrand('' + brand.replace(/'/g, "\'") + '')">'
+                      + '<span class="brand-item-number">' + numStr + '</span>'
+                      + '<span class="brand-item-name">' + displayName + '</span>'
+                      + '<span class="brand-item-arrow">&#8594;</span>'
+                      + '</div>';
+            });
+            document.getElementById('brand-list').innerHTML = html;
+        }
+
+        // ── Step 2: Products within brand ────────────────────────────
+        function selectBrand(brand) {
+            modalState.selectedBrand = brand;
+
+            if (brand === 'See All Brands') {
+                showFormStep();
+                return;
+            }
+
+            document.getElementById('step-brands').classList.add('hidden');
+            document.getElementById('step-products').classList.remove('hidden');
+            document.getElementById('step-brand-label').textContent = brand.toUpperCase();
+
+            var brandProducts = CATALOG_DATA.filter(function(p) {
+                return p.vendor && p.vendor.toLowerCase() === brand.toLowerCase();
+            });
+
+            var html = '';
+            if (brandProducts.length === 0) {
+                html = '<p class="no-products-note">No pieces from this house in the current collection.</p>';
+            } else {
+                brandProducts.forEach(function(p) {
+                    var isSelected = (modalState.selectedProductCode === p.code) ? ' selected-product' : '';
+                    html += '<div class="product-list-item' + isSelected + '" onclick="selectProduct('' + p.code.replace(/'/g, "\'") + '', '' + p.name.replace(/'/g, "\'") + '')">'
+                          + '<div class="product-item-info">'
+                          + '<span class="product-item-name">' + p.name + '</span>'
+                          + '<span class="product-item-code">' + p.code + '</span>'
+                          + '</div>'
+                          + '<span class="product-check">&#10003;</span>'
+                          + '</div>';
+                });
+            }
+            document.getElementById('product-list').innerHTML = html;
+        }
+
+        function selectProduct(code, name) {
+            modalState.selectedProductCode = code;
+            modalState.selectedProductName = name;
+            // Briefly re-render to show tick, then advance
+            selectBrand(modalState.selectedBrand);
+            setTimeout(function() { showFormStep(); }, 350);
+        }
+
+        function backFromForm() {
+            if (modalState.selectedBrand === 'See All Brands') {
+                showBrandStep();
+            } else {
+                selectBrand(modalState.selectedBrand);
+            }
+        }
+
+        // ── Step 3: Contact form ──────────────────────────────────────
+        function showFormStep() {
+            document.getElementById('step-brands').classList.add('hidden');
+            document.getElementById('step-products').classList.add('hidden');
+            document.getElementById('step-form').classList.remove('hidden');
+
+            var savedData;
+            try { savedData = JSON.parse(localStorage.getItem('bd_user_info') || 'null'); } catch(e) { savedData = null; }
+            var ui = savedData || { name: '', phone: '', countryCode: '+974' };
+
+            var brandDisplay = (modalState.selectedBrand === 'See All Brands') ? 'All Houses' : (modalState.selectedBrand || '—');
+            var pieceLine = '';
+            if (modalState.selectedProductCode && modalState.selectedBrand !== 'See All Brands') {
+                pieceLine = '<div class="summary-row"><span class="summary-key">Piece</span><span class="summary-val">' + (modalState.selectedProductName || modalState.selectedProductCode) + '</span></div>';
+            }
+
+            var ccs = [
+                ['+974','QA +974'],['+971','AE +971'],['+966','SA +966'],
+                ['+965','KW +965'],['+968','OM +968'],['+973','BH +973'],
+                ['+1','US +1'],['+44','UK +44'],['+91','IN +91']
+            ];
+            var ccOptions = ccs.map(function(c) {
+                return '<option value="' + c[0] + '"' + (ui.countryCode === c[0] ? ' selected' : '') + '>' + c[1] + '</option>';
+            }).join('');
+
+            var html = '<div class="selection-summary">'
+                     + '<div class="summary-row"><span class="summary-key">House</span><span class="summary-val">' + brandDisplay + '</span></div>'
+                     + pieceLine
+                     + '</div>'
+                     + '<form class="smart-form" onsubmit="submitSmartForm(event)">'
+                     + '<div class="form-group"><label>Full Name</label><input type="text" id="formName" required placeholder="Your name" value="' + (ui.name || '') + '"></div>'
+                     + '<div class="form-group"><label>Contact Number</label>'
+                     + '<div class="phone-input-container">'
+                     + '<select id="formCountryCode">' + ccOptions + '</select>'
+                     + '<input type="tel" id="formPhone" required placeholder="Phone number" value="' + (ui.phone || '') + '">'
+                     + '</div></div>'
+                     + '<div class="form-group"><label>Occasion <span class="optional-tag">(Optional)</span></label>'
+                     + '<select id="formOccasion">'
+                     + '<option value="">Select an occasion</option>'
+                     + '<option value="Engagement">Engagement</option>'
+                     + '<option value="Wedding">Wedding</option>'
+                     + '<option value="Anniversary">Anniversary</option>'
+                     + '<option value="Birthday">Birthday</option>'
+                     + '<option value="Gift">Gift</option>'
+                     + '<option value="Personal">Personal Treat</option>'
+                     + '</select></div>'
+                     + '<button type="submit" class="form-submit">Confirm &amp; Request</button>'
+                     + '</form>';
+
+            document.getElementById('form-step-content').innerHTML = html;
+        }
+
+        function submitSmartForm(event) {
+            event.preventDefault();
+            var userInfo = {
+                name: document.getElementById('formName').value,
+                countryCode: document.getElementById('formCountryCode').value,
+                phone: document.getElementById('formPhone').value,
+                occasion: document.getElementById('formOccasion').value
+            };
+            try { localStorage.setItem('bd_user_info', JSON.stringify(userInfo)); } catch(e) {}
+            sendAction(userInfo);
+        }
+
+        // ── Step 4: Confirmation + webhook ────────────────────────────
+        async function sendAction(userInfo) {
+            userInfo = userInfo || {};
+
+            // Show confirmation
+            document.getElementById('step-form').classList.add('hidden');
+            document.getElementById('step-confirm').classList.remove('hidden');
+
+            var brandDisplay = (modalState.selectedBrand === 'See All Brands') ? 'all houses' : (modalState.selectedBrand || 'the collection');
+            var pieceRef = modalState.selectedProductName
+                ? ' — specifically the ' + modalState.selectedProductName + ' —'
+                : '';
+            document.getElementById('confirm-msg').textContent =
+                'Thank you, ' + (userInfo.name || 'valued client') + '. Your interest in '
+                + brandDisplay + pieceRef + ' has been noted. An advisor will be in touch shortly.';
+
+            try {
+                await fetch('https://n8n.srv1138489.hstgr.cloud/webhook/weblink-buttons', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'Advisor',
+                        brand: modalState.selectedBrand,
+                        productCode: modalState.selectedProductCode,
+                        productName: modalState.selectedProductName,
+                        pageUrl: window.location.href,
+                        deviceFingerprint: getDeviceFingerprint(),
+                        customerName: userInfo.name || null,
+                        customerPhone: (userInfo.countryCode || '') + (userInfo.phone || ''),
+                        occasion: userInfo.occasion || null,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch(err) {
+                console.error('Webhook error:', err);
+            }
+
+            if (window.parent && window.parent.postMessage) {
+                window.parent.postMessage({
+                    type: 'Advisor',
+                    brand: modalState.selectedBrand,
+                    productCode: modalState.selectedProductCode,
+                    productName: modalState.selectedProductName,
+                    userInfo: userInfo
+                }, '*');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('actionModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('actionModal')) closeModal();
+        };
+    </script>
+</body>
+</html>
