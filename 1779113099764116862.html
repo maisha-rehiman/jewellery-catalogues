@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Blue Diamond Jewellery | Curated Catalogue</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --gold:#c5a059;
+            --gold-soft:rgba(197,160,89,.18);
+            --ink:#111111;
+            --paper:#faf7f2;
+            --paper-2:#f3eee6;
+            --line:#e8dfd3;
+            --muted:#8d8478;
+            --shadow:0 20px 60px rgba(0,0,0,.12);
+        }
+
+        *{box-sizing:border-box}
+        html,body{margin:0;padding:0;height:100%}
+        body{
+            background:
+                radial-gradient(circle at top, rgba(197,160,89,.08), transparent 28%),
+                linear-gradient(180deg, #0b0b0b 0%, #111 30%, #f7f2eb 30%, #f7f2eb 100%);
+            color:var(--ink);
+            font-family:"Cormorant Garamond", Georgia, serif;
+            overflow-x:hidden;
+        }
+
+        button,input,textarea,select{font:inherit}
+        button{cursor:pointer}
+        .app{
+            min-height:100vh;
+            padding:22px;
+        }
+
+        .frame{
+            max-width:1400px;
+            margin:0 auto;
+            min-height:calc(100vh - 44px);
+            background:rgba(255,255,255,.62);
+            backdrop-filter:blur(6px);
+            border:1px solid rgba(255,255,255,.5);
+            box-shadow:var(--shadow);
+            overflow:hidden;
+            position:relative;
+        }
+
+        .topbar{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:14px;
+            padding:18px 22px;
+            border-bottom:1px solid var(--line);
+            background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(250,247,242,.9));
+            position:sticky;
+            top:0;
+            z-index:20;
+        }
+
+        .brandlock{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            min-width:0;
+        }
+        .brandmark{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            border:1px solid var(--gold-soft);
+            display:grid;
+            place-items:center;
+            background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.98), rgba(243,238,230,.86));
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+            flex:0 0 auto;
+            overflow:hidden;
+        }
+        .brandmark img{width:26px;height:26px;object-fit:contain;display:block}
+        .brandtext{min-width:0}
+        .brandtext h1{
+            margin:0;
+            font-family:"Cinzel", serif;
+            font-size:1rem;
+            letter-spacing:.28em;
+            font-weight:400;
+            text-transform:uppercase;
+            color:#191919;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+        .brandtext p{
+            margin:4px 0 0;
+            color:var(--muted);
+            font-size:.8rem;
+            letter-spacing:.08em;
+            text-transform:uppercase;
+        }
+
+        .top-actions{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            justify-content:flex-end;
+        }
+        .ghost-btn,.solid-btn{
+            border:1px solid var(--gold-soft);
+            border-radius:999px;
+            padding:11px 16px;
+            letter-spacing:.12em;
+            text-transform:uppercase;
+            font-size:.68rem;
+            transition:transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+        }
+        .ghost-btn{
+            background:transparent;
+            color:var(--ink);
+        }
+        .solid-btn{
+            background:var(--ink);
+            color:#fff;
+            border-color:var(--ink);
+        }
+        .ghost-btn:hover,.solid-btn:hover{transform:translateY(-1px)}
+        .ghost-btn:hover{border-color:var(--gold);color:var(--gold)}
+        .solid-btn:hover{background:var(--gold);border-color:var(--gold)}
+
+        .hero{
+            padding:28px 22px 8px;
+            background:
+                linear-gradient(180deg, rgba(15,15,15,.97) 0%, rgba(19,19,19,.98) 45%, rgba(255,255,255,0) 45%);
+            color:#fff;
+        }
+        .hero-inner{
+            display:grid;
+            grid-template-columns:1.4fr .9fr;
+            gap:22px;
+            align-items:end;
+            padding-bottom:18px;
+        }
+        .hero-copy{
+            padding:20px 0 0;
+        }
+        .eyebrow{
+            display:inline-block;
+            color:var(--gold);
+            letter-spacing:.35em;
+            text-transform:uppercase;
+            font-size:.66rem;
+            margin-bottom:14px;
+        }
+        .hero h2{
+            margin:0;
+            font-family:"Cinzel", serif;
+            font-size:clamp(2rem, 4vw, 4rem);
+            line-height:1.08;
+            letter-spacing:.18em;
+            font-weight:400;
+            text-transform:uppercase;
+        }
+        .hero p{
+            margin:16px 0 0;
+            max-width:60ch;
+            color:rgba(255,255,255,.82);
+            font-size:1.1rem;
+            line-height:1.65;
+        }
+
+        .refine{
+            background:rgba(255,255,255,.88);
+            border:1px solid var(--line);
+            border-radius:24px;
+            padding:16px;
+            box-shadow:0 10px 30px rgba(0,0,0,.04);
+        }
+        .refine-head{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            margin-bottom:12px;
+        }
+        .refine-head strong{
+            font-family:"Cinzel", serif;
+            font-size:.84rem;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            color:#222;
+        }
+        .refine-head span{
+            color:var(--muted);
+            font-size:.78rem;
+        }
+        .refine-grid{
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0,1fr));
+            gap:10px;
+        }
+        .field{
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+        }
+        .field label{
+            font-size:.62rem;
+            letter-spacing:.22em;
+            text-transform:uppercase;
+            color:var(--gold);
+        }
+        .field input,.field select,.field textarea{
+            width:100%;
+            border:1px solid var(--line);
+            background:#fff;
+            border-radius:16px;
+            padding:12px 14px;
+            outline:none;
+            color:#1a1a1a;
+            transition:border-color .2s ease, box-shadow .2s ease;
+        }
+        .field input:focus,.field select:focus,.field textarea:focus{
+            border-color:var(--gold);
+            box-shadow:0 0 0 3px rgba(197,160,89,.12);
+        }
+        .refine-actions{
+            display:flex;
+            gap:10px;
+            margin-top:12px;
+            flex-wrap:wrap;
+        }
+
+        .content{
+            padding:22px;
+        }
+
+        .section-head{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-end;
+            gap:16px;
+            margin-bottom:18px;
+            flex-wrap:wrap;
+        }
+        .section-head h3{
+            margin:0;
+            font-family:"Cinzel", serif;
+            font-size:1.45rem;
+            font-weight:400;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+        }
+        .section-head p{
+            margin:6px 0 0;
+            color:var(--muted);
+            font-size:1rem;
+            line-height:1.5;
+        }
+        .section-note{
+            color:var(--muted);
+            font-size:.78rem;
+            letter-spacing:.14em;
+            text-transform:uppercase;
+        }
+
+        .grid{
+            display:grid;
+            gap:16px;
+        }
+        .category-grid{
+            grid-template-columns:repeat(4, minmax(0,1fr));
+        }
+        .collection-grid{
+            grid-template-columns:repeat(2, minmax(0,1fr));
+        }
+        .product-grid{
+            grid-template-columns:repeat(1, minmax(0,1fr));
+        }
+
+        .tile,.collection-card,.product-card,.detail-card{
+            background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(250,247,242,.94));
+            border:1px solid var(--line);
+            border-radius:28px;
+            overflow:hidden;
+            box-shadow:0 14px 40px rgba(0,0,0,.05);
+        }
+        .tile{
+            min-height:170px;
+            padding:18px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            position:relative;
+            transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+        }
+        .tile:hover,.collection-card:hover,.product-card:hover{
+            transform:translateY(-2px);
+            border-color:rgba(197,160,89,.4);
+            box-shadow:0 18px 55px rgba(0,0,0,.08);
+        }
+        .tile .tag{
+            font-size:.62rem;
+            letter-spacing:.26em;
+            text-transform:uppercase;
+            color:var(--gold);
+        }
+        .tile h4{
+            margin:10px 0 0;
+            font-family:"Cinzel", serif;
+            letter-spacing:.14em;
+            font-size:1.1rem;
+            text-transform:uppercase;
+            font-weight:400;
+        }
+        .tile .count{
+            color:#444;
+            font-size:.92rem;
+            margin-top:12px;
+        }
+        .tile .hint{
+            color:var(--muted);
+            font-size:.88rem;
+            margin-top:6px;
+            line-height:1.4;
+        }
+        .tile .go{
+            margin-top:18px;
+            color:#111;
+            font-size:.66rem;
+            letter-spacing:.22em;
+            text-transform:uppercase;
+        }
+
+        .tile-disabled{
+            opacity:.65;
+            background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(245,240,232,.8));
+        }
+
+        .collection-card{
+            padding:0;
+            display:grid;
+            grid-template-columns:220px 1fr;
+            min-height:220px;
+        }
+        .collection-visual{
+            position:relative;
+            min-height:220px;
+            background:#e8dfd4;
+            border-right:1px solid var(--line);
+            overflow:hidden;
+        }
+        .collection-visual img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
+            filter:saturate(.95) contrast(.98);
+        }
+        .collection-overlay{
+            position:absolute;
+            inset:auto 0 0 0;
+            padding:14px 16px;
+            background:linear-gradient(180deg, transparent, rgba(0,0,0,.72));
+            color:#fff;
+            font-size:.78rem;
+            letter-spacing:.14em;
+            text-transform:uppercase;
+        }
+        .collection-body{
+            padding:18px 18px 16px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            gap:12px;
+        }
+        .collection-body h4{
+            margin:0;
+            font-family:"Cinzel", serif;
+            font-size:1.12rem;
+            font-weight:400;
+            letter-spacing:.14em;
+            text-transform:uppercase;
+        }
+        .collection-meta{
+            color:var(--muted);
+            font-size:.78rem;
+            letter-spacing:.12em;
+            text-transform:uppercase;
+        }
+        .collection-desc{
+            color:#333;
+            font-size:1rem;
+            line-height:1.6;
+            max-width:68ch;
+        }
+        .collection-stats{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            align-items:center;
+            margin-top:6px;
+        }
+        .pill{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            border:1px solid var(--line);
+            background:#fff;
+            border-radius:999px;
+            padding:9px 12px;
+            font-size:.68rem;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            color:#222;
+        }
+
+        .product-card{
+            padding:14px;
+            display:grid;
+            grid-template-columns:170px 1fr;
+            gap:14px;
+            align-items:start;
+        }
+        .product-image{
+            width:100%;
+            min-height:170px;
+            border-radius:20px;
+            overflow:hidden;
+            background:#ede6dc;
+            border:1px solid var(--line);
+            position:relative;
+        }
+        .product-image img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
+        }
+        .product-body{
+            min-width:0;
+            padding:4px 2px 4px 0;
+        }
+        .product-body h4{
+            margin:0 0 6px;
+            font-family:"Cinzel", serif;
+            font-weight:400;
+            font-size:1.02rem;
+            letter-spacing:.1em;
+            text-transform:uppercase;
+        }
+        .product-sub{
+            color:var(--muted);
+            font-size:.72rem;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            margin-bottom:10px;
+        }
+        .product-body p{
+            margin:0;
+            color:#303030;
+            line-height:1.65;
+            font-size:1rem;
+        }
+        .product-meta{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+            margin-top:12px;
+        }
+
+        .detail-card{
+            display:grid;
+            grid-template-columns:1.1fr .9fr;
+            gap:0;
+        }
+        .detail-visual{
+            background:#eadfd1;
+            position:relative;
+            min-height:580px;
+            overflow:hidden;
+        }
+        .detail-visual img{
+            width:100%;
+            height:100%;
+            object-fit:contain;
+            display:block;
+            background:#fff;
+        }
+        .detail-visual .vendor-badge{
+            position:absolute;
+            top:16px;
+            left:16px;
+            background:rgba(255,255,255,.92);
+            border:1px solid var(--line);
+            border-radius:999px;
+            padding:8px 12px;
+            font-size:.66rem;
+            letter-spacing:.22em;
+            text-transform:uppercase;
+            color:#222;
+        }
+        .detail-body{
+            padding:22px;
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+            overflow:auto;
+        }
+        .detail-body h4{
+            margin:0;
+            font-family:"Cinzel", serif;
+            font-weight:400;
+            font-size:1.35rem;
+            letter-spacing:.12em;
+            text-transform:uppercase;
+        }
+        .detail-body .meta-row{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+        }
+        .detail-body .lead{
+            margin:0;
+            color:#2d2d2d;
+            line-height:1.75;
+            font-size:1.06rem;
+        }
+        .spec{
+            border-top:1px solid var(--line);
+            padding-top:12px;
+        }
+        .spec h5{
+            margin:0 0 10px;
+            font-size:.7rem;
+            letter-spacing:.22em;
+            text-transform:uppercase;
+            color:var(--gold);
+        }
+        .spec p{
+            margin:0;
+            color:#444;
+            line-height:1.7;
+            font-size:.98rem;
+        }
+        .action-row{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:4px;
+        }
+
+        .empty{
+            background:rgba(255,255,255,.9);
+            border:1px dashed rgba(197,160,89,.38);
+            border-radius:28px;
+            padding:28px;
+            color:#333;
+            line-height:1.7;
+        }
+        .empty strong{
+            display:block;
+            margin-bottom:8px;
+            font-family:"Cinzel", serif;
+            letter-spacing:.12em;
+            text-transform:uppercase;
+            font-weight:400;
+        }
+
+        .advisor-backdrop{
+            position:fixed;
+            inset:0;
+            background:rgba(10,10,10,.72);
+            backdrop-filter:blur(8px);
+            z-index:1000;
+            display:none;
+            align-items:center;
+            justify-content:center;
+            padding:18px;
+        }
+        .advisor-modal{
+            width:min(760px, 100%);
+            max-height:92vh;
+            overflow:auto;
+            background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(250,247,242,.98));
+            border:1px solid var(--line);
+            border-radius:28px;
+            box-shadow:0 30px 80px rgba(0,0,0,.28);
+            padding:20px;
+        }
+        .advisor-head{
+            display:flex;
+            justify-content:space-between;
+            gap:14px;
+            align-items:flex-start;
+            margin-bottom:12px;
+        }
+        .advisor-head h4{
+            margin:0;
+            font-family:"Cinzel", serif;
+            font-size:1.15rem;
+            letter-spacing:.16em;
+            text-transform:uppercase;
+            font-weight:400;
+        }
+        .advisor-head p{
+            margin:8px 0 0;
+            color:var(--muted);
+            font-size:.98rem;
+            line-height:1.55;
+        }
+        .xbtn{
+            border:none;
+            background:transparent;
+            font-size:1.5rem;
+            line-height:1;
+            color:#777;
+            padding:4px 8px;
+        }
+        .advisor-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:12px;
+            margin-top:12px;
+        }
+        .full{grid-column:1 / -1}
+        .brand-grid{
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0,1fr));
+            gap:10px;
+        }
+        .brand-chip{
+            position:relative;
+        }
+        .brand-chip input{
+            position:absolute;
+            opacity:0;
+            pointer-events:none;
+        }
+        .brand-chip span{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            min-height:46px;
+            border:1px solid var(--line);
+            border-radius:16px;
+            background:#fff;
+            padding:10px 12px;
+            text-align:center;
+            font-size:.8rem;
+            line-height:1.25;
+            color:#222;
+            transition:all .2s ease;
+        }
+        .brand-chip input:checked + span{
+            border-color:var(--gold);
+            box-shadow:0 0 0 3px rgba(197,160,89,.12);
+            color:#000;
+        }
+        .advisor-actions{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:14px;
+            justify-content:flex-end;
+        }
+
+        .muted{
+            color:var(--muted);
+        }
+
+        @media (max-width: 1100px){
+            .category-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+            .collection-grid{grid-template-columns:1fr}
+            .detail-card{grid-template-columns:1fr}
+            .detail-visual{min-height:420px}
+        }
+        @media (max-width: 760px){
+            .app{padding:0}
+            .frame{border:none;border-radius:0;min-height:100vh}
+            .topbar{padding:14px 14px}
+            .hero,.content{padding-left:14px;padding-right:14px}
+            .hero-inner{grid-template-columns:1fr}
+            .refine-grid{grid-template-columns:1fr}
+            .category-grid{grid-template-columns:1fr}
+            .product-card,.collection-card{grid-template-columns:1fr}
+            .collection-visual{min-height:190px;border-right:none;border-bottom:1px solid var(--line)}
+            .brand-grid{grid-template-columns:1fr 1fr}
+            .advisor-grid{grid-template-columns:1fr}
+            .detail-body{padding:18px}
+            .top-actions{display:none}
+            .brandtext h1{font-size:.88rem;letter-spacing:.18em}
+            .brandtext p{font-size:.7rem}
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="frame">
+            <div class="topbar">
+                <div class="brandlock">
+                    <div class="brandmark">
+                        <img src="https://res.cloudinary.com/daucolvng/image/upload/f_auto,q_auto/BD_Logo_d4gza1" alt="Blue Diamond Jewellery" />
+                    </div>
+                    <div class="brandtext">
+                        <h1>Blue Diamond Jewellery</h1>
+                        <p>Category-led couture selection</p>
+                    </div>
+                </div>
+                <div class="top-actions">
+                    <button id="homeBtn" class="ghost-btn" type="button">Categories</button>
+                    <button id="backBtn" class="ghost-btn" type="button">Back</button>
+                    <button id="advisorBtn" class="solid-btn" type="button">Speak to advisor</button>
+                </div>
+            </div>
+
+            <div id="app-root"></div>
+        </div>
+    </div>
+
+    <div id="advisorBackdrop" class="advisor-backdrop" aria-hidden="true">
+        <div class="advisor-modal" role="dialog" aria-modal="true" aria-labelledby="advisorTitle">
+            <div class="advisor-head">
+                <div>
+                    <h4 id="advisorTitle">Speak with advisor</h4>
+                    <p id="advisorContext" class="muted"></p>
+                </div>
+                <button class="xbtn" id="closeAdvisor" type="button" aria-label="Close">×</button>
+            </div>
+
+            <form id="advisorForm">
+                <div class="advisor-grid">
+                    <div class="field">
+                        <label for="formName">Full name</label>
+                        <input id="formName" name="name" type="text" placeholder="Enter your name" required />
+                    </div>
+                    <div class="field">
+                        <label for="formPhone">Contact number</label>
+                        <input id="formPhone" name="phone" type="tel" placeholder="Phone number" required />
+                    </div>
+                    <div class="field">
+                        <label for="formCountryCode">Country code</label>
+                        <select id="formCountryCode" name="countryCode">
+                            <option value="+974">QA +974</option>
+                            <option value="+971">AE +971</option>
+                            <option value="+966">SA +966</option>
+                            <option value="+965">KW +965</option>
+                            <option value="+968">OM +968</option>
+                            <option value="+973">BH +973</option>
+                            <option value="+1">US +1</option>
+                            <option value="+44">UK +44</option>
+                            <option value="+91">IN +91</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="formOccasion">Occasion</label>
+                        <select id="formOccasion" name="occasion">
+                            <option value="">Select occasion</option>
+                            <option value="Engagement">Engagement</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Anniversary">Anniversary</option>
+                            <option value="Birthday">Birthday</option>
+                            <option value="Gift">Gift</option>
+                            <option value="Personal Treat">Personal Treat</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label>Preferred brands <span class="muted">(multiple choice)</span></label>
+                        <div id="brandGrid" class="brand-grid"></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="formStone">Stone preference</label>
+                        <input id="formStone" name="stonePreference" type="text" placeholder="Diamond, emerald, pearl, malachite..." />
+                    </div>
+                    <div class="field">
+                        <label for="formMetal">Metal preference</label>
+                        <input id="formMetal" name="metalPreference" type="text" placeholder="Rose gold, white gold, yellow gold..." />
+                    </div>
+
+                    <div class="field full">
+                        <label for="formMessage">Message</label>
+                        <textarea id="formMessage" name="message" rows="5" placeholder="Tell us your stone or metal preferences, budget, or anything you would like the advisor to know."></textarea>
+                    </div>
+                </div>
+
+                <div class="advisor-actions">
+                    <button type="button" id="cancelAdvisor" class="ghost-btn">Cancel</button>
+                    <button type="submit" class="solid-btn">Send request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const PRODUCTS = [{"price":9850,"details":"Gold Weight: 5.538 G\nDiamond (Carat): VS-G 0.24. \nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"Inspired by a star-shaped bloom, the Stella Collection features earrings, pendant, ring, and bracelet in rose gold with pavé diamonds. Elegant, luminous, and easy to wear as a matching set or individual statement piece.","product_name":"Stella Diamond Pendant, S Model","vendor":"Bijouq","product_code":"PN-3583","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-3583.png?v=1777532411","tag":[{"name":"Stella","id":"7136289000003538794","color_code":null}],"_category":"Earrings","_tag":"Stella","_vendor":"Bijouq","_price":9850,"_code":"PN-3583","_name":"Stella Diamond Pendant, S Model","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-3583.png?v=1777532411","_description":"Inspired by a star-shaped bloom, the Stella Collection features earrings, pendant, ring, and bracelet in rose gold with pavé diamonds. Elegant, luminous, and easy to wear as a matching set or individual statement piece.","_details":"Gold Weight: 5.538 G\nDiamond (Carat): VS-G 0.24. \nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":8550,"details":"Gold Weight: 6.22 G\nDiamond (Carat): RD 0.51 CT, VS-G. CO 0.75 CT\nGold Color: Rose\nResizable: Yes\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"Rose Collection Coral Pendant, Small, designed in 18KP gold, with a weight of 6.22 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.","product_name":"Rose Collection Coral Pendant, Small","vendor":"Bijouq","product_code":"PN-2555","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2555_8d7faa6a-2e61-4837-b93b-e1bdd51fe402.jpg?v=1771780650","tag":[{"name":"Rose","id":"7136289000003539509","color_code":null}],"_category":"Pendants","_tag":"Rose","_vendor":"Bijouq","_price":8550,"_code":"PN-2555","_name":"Rose Collection Coral Pendant, Small","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2555_8d7faa6a-2e61-4837-b93b-e1bdd51fe402.jpg?v=1771780650","_description":"Rose Collection Coral Pendant, Small, designed in 18KP gold, with a weight of 6.22 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.","_details":"Gold Weight: 6.22 G\nDiamond (Carat): RD 0.51 CT, VS-G. CO 0.75 CT\nGold Color: Rose\nResizable: Yes\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":10720,"details":"Gold Weight: 7.15 g\nDiamond (Carat): RD 0.27 CT, VS-G\nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"Wave?inspired flow in enamel with diamonds —a statement accent piece.","product_name":"Onda Enamel Pendant, Rose Gold","vendor":"Noi Gioielli","product_code":"PN-2820","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561","tag":[{"name":"Onda","id":"7136289000003542321","color_code":null}],"_category":"Pendants","_tag":"Onda","_vendor":"Noi Gioielli","_price":10720,"_code":"PN-2820","_name":"Onda Enamel Pendant, Rose Gold","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2820_2511ebb5-dd0e-40cb-b517-257ecdab03d2.jpg?v=1757912561","_description":"Wave?inspired flow in enamel with diamonds —a statement accent piece.","_details":"Gold Weight: 7.15 g\nDiamond (Carat): RD 0.27 CT, VS-G\nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":11052,"details":"Gold Weight: 9.668 g\nDiamond (Carat): RD 0.16 CT, VS-G\nGold Color: White\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"Enchanting colors in enamel with diamonds —a statement accent piece.","product_name":"Incanto Multi Coloured Pendant","vendor":"Noi Gioielli","product_code":"PN-1387","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1387_7eaab1c4-272c-4482-9586-332ae637c698.jpg?v=1757912557","tag":[{"name":"Incanto","id":"7136289000003552199","color_code":null}],"_category":"Pendants","_tag":"Incanto","_vendor":"Noi Gioielli","_price":11052,"_code":"PN-1387","_name":"Incanto Multi Coloured Pendant","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-1387_7eaab1c4-272c-4482-9586-332ae637c698.jpg?v=1757912557","_description":"Enchanting colors in enamel with diamonds —a statement accent piece.","_details":"Gold Weight: 9.668 g\nDiamond (Carat): RD 0.16 CT, VS-G\nGold Color: White\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":12348,"details":"Gold Weight: 6.06 G \nDiamond (Carat): RD 0.71 CT, VVS-G. MC 1.10 G\nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"A singular expression of artistry and flair.","product_name":"Natura Necklace- Malachite & Diamonds","vendor":"Luca Carati","product_code":"NK-2063","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2063_cd5a7591-0624-4cf7-bbc9-4280f6e5c741.jpg?v=1754718841","tag":[{"name":"Natura","id":"7136289000003524793","color_code":null}],"_category":"Necklaces","_tag":"Natura","_vendor":"Luca Carati","_price":12348,"_code":"NK-2063","_name":"Natura Necklace- Malachite & Diamonds","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2063_cd5a7591-0624-4cf7-bbc9-4280f6e5c741.jpg?v=1754718841","_description":"A singular expression of artistry and flair.","_details":"Gold Weight: 6.06 G \nDiamond (Carat): RD 0.71 CT, VVS-G. MC 1.10 G\nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":8775,"details":"Gold Weight: 4.79 G\nDiamond (Carat): RD 0.53 CT, VVS-G \nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"A cascade of polished elegance draped in timeless charm.","product_name":"Art Deco Star Necklace","vendor":"Luca Carati","product_code":"NK-2503","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2503_d612fd3f-98d5-414c-824a-8ed07009ad12.jpg?v=1754718837","tag":[{"name":"Art Deco","id":"7136289000003538769","color_code":null}],"_category":"Necklaces","_tag":"Art Deco","_vendor":"Luca Carati","_price":8775,"_code":"NK-2503","_name":"Art Deco Star Necklace","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2503_d612fd3f-98d5-414c-824a-8ed07009ad12.jpg?v=1754718837","_description":"A cascade of polished elegance draped in timeless charm.","_details":"Gold Weight: 4.79 G\nDiamond (Carat): RD 0.53 CT, VVS-G \nGold Color: Rose\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":7650,"details":"Gold Weight: 5.54 G\nDiamond (Carat): RD 0.3CT, VVS-G \nGold Color: White\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"Crafted to contour graceâ€”where geometry meets poetry.","product_name":"Art Deco Necklace- White Gold","vendor":"Luca Carati","product_code":"NK-2593","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2593_d425fa8b-ad72-4d5b-9416-ffaa1901dc14.jpg?v=1754718832","tag":[{"name":"Art Deco","id":"7136289000003538769","color_code":null}],"_category":"Necklaces","_tag":"Art Deco","_vendor":"Luca Carati","_price":7650,"_code":"NK-2593","_name":"Art Deco Necklace- White Gold","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/NK-2593_d425fa8b-ad72-4d5b-9416-ffaa1901dc14.jpg?v=1754718832","_description":"Crafted to contour graceâ€”where geometry meets poetry.","_details":"Gold Weight: 5.54 G\nDiamond (Carat): RD 0.3CT, VVS-G \nGold Color: White\nResizable: No\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."},{"price":11900,"details":"Gold Weight: 10.05 G\nDiamond (Carat): RD 0.32 CT,VS-G. MP/MN 4.75 CT\nGold Color: Rose\nResizable: Yes\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations.","description":"Coccopelli Malachite Pendant - Small designed in 18KP gold, with a weight of 10.05 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.","product_name":"Coccopelli Malachite Pendant, Small","vendor":"Bijouq","product_code":"PN-2150","product_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2150.jpg?v=1751271558","tag":[{"name":"Coccopelli","id":"7136289000003537655","color_code":null}],"_category":"Pendants","_tag":"Coccopelli","_vendor":"Bijouq","_price":11900,"_code":"PN-2150","_name":"Coccopelli Malachite Pendant, Small","_image":"https://cdn.shopify.com/s/files/1/0707/3991/9016/files/PN-2150.jpg?v=1751271558","_description":"Coccopelli Malachite Pendant - Small designed in 18KP gold, with a weight of 10.05 G. Crafted with meticulous attention, it reflects character, structure, and individuality—ideal for collectors and connoisseurs of refined forms.","_details":"Gold Weight: 10.05 G\nDiamond (Carat): RD 0.32 CT,VS-G. MP/MN 4.75 CT\nGold Color: Rose\nResizable: Yes\nMade In: Italy\n\nPlease note that product descriptions may vary slightly depending on size and craftsmanship variations."}];
+
+        const CATEGORY_ORDER = ["Rings","Necklaces","Earrings","Bracelets","Bangles","Pendants","Bridal","High Jewelry"];
+        const BRAND_OPTIONS = ["Bijouq","J Jewels","Palmyra","Noi Gioielli","Giloro","Carlo Barberis","Cashmere","Luca Carati","See All Brands"];
+
+        const state = {
+            view: 'home',
+            category: null,
+            collection: null,
+            productCode: null,
+            budgetMin: '',
+            budgetMax: '',
+            pendingAdvisor: null
+        };
+
+        const root = document.getElementById('app-root');
+        const homeBtn = document.getElementById('homeBtn');
+        const backBtn = document.getElementById('backBtn');
+        const advisorBtn = document.getElementById('advisorBtn');
+
+        const advisorBackdrop = document.getElementById('advisorBackdrop');
+        const advisorForm = document.getElementById('advisorForm');
+        const advisorContext = document.getElementById('advisorContext');
+        const brandGrid = document.getElementById('brandGrid');
+
+        const saved = localStorage.getItem('bd_user_info');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                document.getElementById('formName').value = data.name || '';
+                document.getElementById('formPhone').value = data.phone || '';
+                document.getElementById('formCountryCode').value = data.countryCode || '+974';
+                document.getElementById('formOccasion').value = data.occasion || '';
+                document.getElementById('formStone').value = data.stonePreference || '';
+                document.getElementById('formMetal').value = data.metalPreference || '';
+                document.getElementById('formMessage').value = data.message || '';
+                if (Array.isArray(data.preferredBrands)) {
+                    setTimeout(() => {
+                        [...brandGrid.querySelectorAll('input[type="checkbox"]')].forEach((input) => {
+                            input.checked = data.preferredBrands.includes(input.value);
+                        });
+                    }, 0);
+                }
+            } catch (e) {}
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function nl2br(value) {
+            return escapeHtml(value).replace(/\n/g, '<br>');
+        }
+
+        function currency(value) {
+            const num = Number(value || 0);
+            return 'QAR ' + num.toLocaleString('en-QA', { maximumFractionDigits: 0 });
+        }
+
+        function inferCategory(product) {
+            const text = [
+                product.category,
+                product.product_type,
+                product.product_name,
+                product.description,
+                product.details,
+                Array.isArray(product.tag) ? product.tag.map((t) => t && t.name).join(' ') : ''
+            ]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
+
+            if (/(bridal|wedding|engagement)/.test(text)) return 'Bridal';
+            if (/high jewelry|high jewellery|heirloom/.test(text)) return 'High Jewelry';
+            if (/(earring|stud|hoop)/.test(text)) return 'Earrings';
+            if (/(bracelet)/.test(text)) return 'Bracelets';
+            if (/(bangle)/.test(text)) return 'Bangles';
+            if (/(ring)/.test(text)) return 'Rings';
+            if (/(pendant|pendants?)/.test(text)) return 'Pendants';
+            if (/(necklace|necklaces?)/.test(text)) return 'Necklaces';
+            return 'Pendants';
+        }
+
+        function getTagName(product) {
+            if (Array.isArray(product.tag) && product.tag.length && product.tag[0] && product.tag[0].name) {
+                return String(product.tag[0].name).trim() || 'Curated Selection';
+            }
+            return 'Curated Selection';
+        }
+
+        function normalizeProduct(product) {
+            return {
+                ...product,
+                _category: inferCategory(product),
+                _tag: getTagName(product),
+                _vendor: product.vendor || 'Blue Diamond Jewellery',
+                _price: Number(product.price || 0),
+                _code: product.product_code || '',
+                _name: product.product_name || 'Untitled Piece',
+                _image: product.product_image || '',
+                _description: product.description || '',
+                _details: product.details || ''
+            };
+        }
+
+        const data = PRODUCTS.map(normalizeProduct);
+
+        function unique(arr) {
+            return [...new Set(arr.filter(Boolean))];
+        }
+
+        function getCategoryProducts(category) {
+            return data.filter((p) => p._category === category);
+        }
+
+        function getFilteredCategoryProducts(category) {
+            const min = state.budgetMin === '' ? null : Number(state.budgetMin);
+            const max = state.budgetMax === '' ? null : Number(state.budgetMax);
+            return getCategoryProducts(category).filter((p) => {
+                const okMin = min === null || Number.isNaN(min) || p._price >= min;
+                const okMax = max === null || Number.isNaN(max) || p._price <= max;
+                return okMin && okMax;
+            });
+        }
+
+        function getCollections(category) {
+            const products = getFilteredCategoryProducts(category);
+            const map = new Map();
+
+            products.forEach((p) => {
+                const key = p._tag;
+                if (!map.has(key)) map.set(key, []);
+                map.get(key).push(p);
+            });
+
+            return [...map.entries()].map(([tag, items]) => ({
+                tag,
+                items,
+                count: items.length,
+                min: Math.min(...items.map((x) => x._price)),
+                max: Math.max(...items.map((x) => x._price)),
+                vendors: unique(items.map((x) => x._vendor)),
+                hero: items[0]
+            }));
+        }
+
+        function currentProduct() {
+            return data.find((p) => p._code === state.productCode) || null;
+        }
+
+        function currentCollectionItems() {
+            const categoryItems = getFilteredCategoryProducts(state.category);
+            return categoryItems.filter((p) => p._tag === state.collection);
+        }
+
+        function openCategory(category) {
+            state.view = 'category';
+            state.category = category;
+            state.collection = null;
+            state.productCode = null;
+            state.pendingAdvisor = null;
+            render();
+        }
+
+        function openCollection(tag) {
+            state.view = 'collection';
+            state.collection = tag;
+            state.productCode = null;
+            state.pendingAdvisor = null;
+            render();
+        }
+
+        function openProduct(code) {
+            state.view = 'product';
+            state.productCode = code;
+            state.pendingAdvisor = null;
+            render();
+        }
+
+        function goHome() {
+            state.view = 'home';
+            state.category = null;
+            state.collection = null;
+            state.productCode = null;
+            state.pendingAdvisor = null;
+            render();
+        }
+
+        function goBack() {
+            if (state.view === 'product') {
+                state.view = 'collection';
+                state.productCode = null;
+            } else if (state.view === 'collection') {
+                state.view = 'category';
+                state.collection = null;
+                state.productCode = null;
+            } else if (state.view === 'category') {
+                goHome();
+                return;
+            }
+            render();
+        }
+
+        function openAdvisor(context) {
+            state.pendingAdvisor = context || null;
+            advisorContext.textContent = context ? context : 'Request a curated recommendation or an advisor callback.';
+            advisorBackdrop.style.display = 'flex';
+            advisorBackdrop.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeAdvisor() {
+            advisorBackdrop.style.display = 'none';
+            advisorBackdrop.setAttribute('aria-hidden', 'true');
+        }
+
+        function buildBrandGrid() {
+            brandGrid.innerHTML = BRAND_OPTIONS.map((brand, idx) => {
+                const id = 'brand_' + idx;
+                return (
+                    '<label class="brand-chip" for="' + id + '">' +
+                        '<input type="checkbox" id="' + id + '" name="preferredBrands" value="' + escapeHtml(brand) + '" />' +
+                        '<span>' + escapeHtml(brand) + '</span>' +
+                    '</label>'
+                );
+            }).join('');
+        }
+
+        function renderHome() {
+            const cards = CATEGORY_ORDER.map((category) => {
+                const count = getCategoryProducts(category).length;
+                const label = category === 'High Jewelry' ? 'Exceptional selection' : 'Curated entry point';
+                const disabled = count === 0 ? ' tile-disabled' : '';
+                return (
+                    '<button type="button" class="tile' + disabled + '" data-action="category" data-category="' + escapeHtml(category) + '">' +
+                        '<div>' +
+                            '<div class="tag">Shop by category</div>' +
+                            '<h4>' + escapeHtml(category) + '</h4>' +
+                            '<div class="count">' + escapeHtml(count === 1 ? '1 piece available' : count + ' pieces available') + '</div>' +
+                            '<div class="hint">' + escapeHtml(label) + '</div>' +
+                        '</div>' +
+                        '<div class="go">' + escapeHtml(count === 0 ? 'Open category' : 'Explore selection') + '</div>' +
+                    '</button>'
+                );
+            }).join('');
+
+            root.innerHTML =
+                '<div class="hero">' +
+                    '<div class="hero-inner">' +
+                        '<div class="hero-copy">' +
+                            '<span class="eyebrow">Shop by category</span>' +
+                            '<h2>Curated pieces, grouped by style.</h2>' +
+                            '<p>Select a category to view the matching collection groups. Each group is shown as a collection, and every piece can still be opened individually for full details.</p>' +
+                        '</div>' +
+                        '<div class="refine">' +
+                            '<div class="refine-head">' +
+                                '<strong>Refine selection</strong>' +
+                                '<span>Optional budget filter</span>' +
+                            '</div>' +
+                            '<div class="refine-grid">' +
+                                '<div class="field">' +
+                                    '<label for="homeBudgetMin">Budget from</label>' +
+                                    '<input id="homeBudgetMin" type="number" min="0" inputmode="numeric" placeholder="0" value="' + escapeHtml(state.budgetMin) + '">' +
+                                '</div>' +
+                                '<div class="field">' +
+                                    '<label for="homeBudgetMax">Budget to</label>' +
+                                    '<input id="homeBudgetMax" type="number" min="0" inputmode="numeric" placeholder="Any" value="' + escapeHtml(state.budgetMax) + '">' +
+                                '</div>' +
+                                '<div class="field">' +
+                                    '<label>Brand note</label>' +
+                                    '<input type="text" value="Use advisor form for preferred brands" disabled>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="refine-actions">' +
+                                '<button class="ghost-btn" type="button" id="applyBudgetHome">Apply budget</button>' +
+                                '<button class="ghost-btn" type="button" id="clearBudgetHome">Clear</button>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="content">' +
+                    '<div class="section-head">' +
+                        '<div>' +
+                            '<h3>Categories</h3>' +
+                            '<p>Open a category to explore collections grouped by tag.</p>' +
+                        '</div>' +
+                        '<div class="section-note">Current selection updates with your budget filter</div>' +
+                    '</div>' +
+                    '<div class="grid category-grid">' + cards + '</div>' +
+                '</div>';
+        }
+
+        function renderCategory() {
+            const category = state.category;
+            const products = getFilteredCategoryProducts(category);
+            const collections = getCollections(category);
+            const total = getCategoryProducts(category).length;
+            const shown = products.length;
+
+            const collectionCards = collections.map((group) => {
+                const hero = group.hero;
+                const countText = group.count === 1 ? '1 piece' : group.count + ' pieces';
+                const priceText = group.min === group.max
+                    ? currency(group.min)
+                    : currency(group.min) + ' – ' + currency(group.max);
+                const vendors = group.vendors.join(' · ');
+                const previewLabel = group.count === 1 ? 'Single piece' : 'Collection of ' + group.count;
+                const actionLabel = group.count === 1 ? 'Open piece' : 'Open collection';
+
+                return (
+                    '<button type="button" class="collection-card" data-action="collection" data-collection="' + escapeHtml(group.tag) + '">' +
+                        '<div class="collection-visual">' +
+                            '<img src="' + escapeHtml(hero._image) + '" alt="' + escapeHtml(group.tag) + '">' +
+                            '<div class="collection-overlay">' + escapeHtml(previewLabel) + '</div>' +
+                        '</div>' +
+                        '<div class="collection-body">' +
+                            '<div>' +
+                                '<div class="collection-meta">' + escapeHtml(category) + ' · ' + escapeHtml(countText) + '</div>' +
+                                '<h4>' + escapeHtml(group.tag) + '</h4>' +
+                                '<div class="collection-desc">' +
+                                    escapeHtml(vendors || 'Curated by Blue Diamond Jewellery') +
+                                '</div>' +
+                                '<div class="collection-stats">' +
+                                    '<span class="pill">' + escapeHtml(priceText) + '</span>' +
+                                    '<span class="pill">' + escapeHtml(actionLabel) + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</button>'
+                );
+            }).join('');
+
+            root.innerHTML =
+                '<div class="content">' +
+                    '<div class="section-head">' +
+                        '<div>' +
+                            '<h3>' + escapeHtml(category) + '</h3>' +
+                            '<p>' + escapeHtml(total === 0 ? 'No pieces are available in this category for the current selection.' : shown + ' piece' + (shown === 1 ? '' : 's') + ' are available in the current selection.') + '</p>' +
+                        '</div>' +
+                        '<div class="section-note">' + escapeHtml('Back to categories or refine by budget') + '</div>' +
+                    '</div>' +
+
+                    '<div class="refine" style="margin-bottom:18px;">' +
+                        '<div class="refine-head">' +
+                            '<strong>Refine selection</strong>' +
+                            '<span>Filter by budget</span>' +
+                        '</div>' +
+                        '<div class="refine-grid">' +
+                            '<div class="field">' +
+                                '<label for="catBudgetMin">Budget from</label>' +
+                                '<input id="catBudgetMin" type="number" min="0" inputmode="numeric" placeholder="0" value="' + escapeHtml(state.budgetMin) + '">' +
+                            '</div>' +
+                            '<div class="field">' +
+                                '<label for="catBudgetMax">Budget to</label>' +
+                                '<input id="catBudgetMax" type="number" min="0" inputmode="numeric" placeholder="Any" value="' + escapeHtml(state.budgetMax) + '">' +
+                            '</div>' +
+                            '<div class="field">' +
+                                '<label>Category</label>' +
+                                '<input type="text" value="' + escapeHtml(category) + '" disabled>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="refine-actions">' +
+                            '<button class="ghost-btn" type="button" id="applyBudgetCategory">Apply budget</button>' +
+                            '<button class="ghost-btn" type="button" id="clearBudgetCategory">Clear</button>' +
+                            '<button class="ghost-btn" type="button" id="backToHomeFromCategory">All categories</button>' +
+                        '</div>' +
+                    '</div>' +
+
+                    (collections.length
+                        ? '<div class="grid collection-grid">' + collectionCards + '</div>'
+                        : '<div class="empty"><strong>No matches in this selection</strong>There are no pieces in this category for the current budget range. Clear the filter, or go back to the categories and choose another category.</div>'
+                    ) +
+                '</div>';
+        }
+
+        function renderCollection() {
+            const items = currentCollectionItems();
+            const collectionName = state.collection || 'Curated Selection';
+
+            if (!items.length) {
+                root.innerHTML =
+                    '<div class="content">' +
+                        '<div class="section-head">' +
+                            '<div>' +
+                                '<h3>' + escapeHtml(collectionName) + '</h3>' +
+                                '<p>No pieces are currently visible for this collection and budget range.</p>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="empty"><strong>No pieces found</strong>Try clearing the budget filter or go back to the category and choose another collection.</div>' +
+                    '</div>';
+                return;
+            }
+
+            const hero = items[0];
+            const cards = items.map((p) => {
+                return (
+                    '<button type="button" class="product-card" data-action="product" data-code="' + escapeHtml(p._code) + '">' +
+                        '<div class="product-image">' +
+                            '<img src="' + escapeHtml(p._image) + '" alt="' + escapeHtml(p._name) + '">' +
+                        '</div>' +
+                        '<div class="product-body">' +
+                            '<div class="product-sub">' + escapeHtml(p._vendor) + ' · ' + escapeHtml(p._code) + '</div>' +
+                            '<h4>' + escapeHtml(p._name) + '</h4>' +
+                            '<p>' + nl2br(p._description) + '</p>' +
+                            '<div class="product-meta">' +
+                                '<span class="pill">' + escapeHtml(currency(p._price)) + '</span>' +
+                                '<span class="pill">' + escapeHtml(p._category) + '</span>' +
+                                '<span class="pill">' + escapeHtml(p._tag) + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</button>'
+                );
+            }).join('');
+
+            root.innerHTML =
+                '<div class="content">' +
+                    '<div class="section-head">' +
+                        '<div>' +
+                            '<h3>' + escapeHtml(collectionName) + '</h3>' +
+                            '<p>' + escapeHtml(items.length === 1 ? 'One piece in this collection is available in the current selection.' : items.length + ' pieces in this collection are available in the current selection.') + '</p>' +
+                        '</div>' +
+                        '<div class="section-note">Tap a piece for full details</div>' +
+                    '</div>' +
+
+                    '<div class="collection-card" style="margin-bottom:18px;">' +
+                        '<div class="collection-visual">' +
+                            '<img src="' + escapeHtml(hero._image) + '" alt="' + escapeHtml(collectionName) + '">' +
+                            '<div class="collection-overlay">' + escapeHtml(state.category || hero._category) + '</div>' +
+                        '</div>' +
+                        '<div class="collection-body">' +
+                            '<div>' +
+                                '<div class="collection-meta">' + escapeHtml(state.category || hero._category) + ' · ' + escapeHtml(items.length === 1 ? '1 piece' : items.length + ' pieces') + '</div>' +
+                                '<h4>' + escapeHtml(collectionName) + '</h4>' +
+                                '<div class="collection-desc">' + escapeHtml('A collection group shaped by the selected tag. Open each piece to see the complete details.') + '</div>' +
+                                '<div class="collection-stats">' +
+                                    '<span class="pill">' + escapeHtml(currency(Math.min(...items.map((x) => x._price)))) + '</span>' +
+                                    '<span class="pill">' + escapeHtml(currency(Math.max(...items.map((x) => x._price)))) + '</span>' +
+                                    '<span class="pill">' + escapeHtml(unique(items.map((x) => x._vendor)).join(' · ')) + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="action-row">' +
+                                '<button type="button" class="ghost-btn" data-action="backCategory">Back to category</button>' +
+                                '<button type="button" class="solid-btn" data-action="advisor" data-context="' + escapeHtml('Collection: ' + collectionName) + '">Speak to advisor</button>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="grid product-grid">' + cards + '</div>' +
+                '</div>';
+        }
+
+        function renderProduct() {
+            const p = currentProduct();
+            if (!p) {
+                root.innerHTML = '<div class="content"><div class="empty"><strong>Piece not found</strong>This product is not available in the current view.</div></div>';
+                return;
+            }
+
+            const detailsText = p._details
+                ? nl2br(p._details)
+                : 'Details are not available for this piece.';
+
+            root.innerHTML =
+                '<div class="content">' +
+                    '<div class="section-head">' +
+                        '<div>' +
+                            '<h3>' + escapeHtml(p._name) + '</h3>' +
+                            '<p>' + escapeHtml(p._vendor) + ' · ' + escapeHtml(p._code) + ' · ' + escapeHtml(p._category) + '</p>' +
+                        '</div>' +
+                        '<div class="section-note">Full piece view</div>' +
+                    '</div>' +
+
+                    '<div class="detail-card">' +
+                        '<div class="detail-visual">' +
+                            '<div class="vendor-badge">' + escapeHtml(p._vendor) + '</div>' +
+                            '<img src="' + escapeHtml(p._image) + '" alt="' + escapeHtml(p._name) + '">' +
+                        '</div>' +
+                        '<div class="detail-body">' +
+                            '<div class="meta-row">' +
+                                '<span class="pill">' + escapeHtml(currency(p._price)) + '</span>' +
+                                '<span class="pill">' + escapeHtml(p._category) + '</span>' +
+                                '<span class="pill">' + escapeHtml(p._tag) + '</span>' +
+                                '<span class="pill">' + escapeHtml(p._code) + '</span>' +
+                            '</div>' +
+
+                            '<h4>' + escapeHtml(p._name) + '</h4>' +
+                            '<p class="lead">' + nl2br(p._description) + '</p>' +
+
+                            '<div class="spec">' +
+                                '<h5>Piece details</h5>' +
+                                '<p>' + detailsText + '</p>' +
+                            '</div>' +
+
+                            '<div class="spec">' +
+                                '<h5>Brand & collection</h5>' +
+                                '<p>' +
+                                    '<strong>Brand:</strong> ' + escapeHtml(p._vendor) + '<br>' +
+                                    '<strong>Collection tag:</strong> ' + escapeHtml(p._tag) + '<br>' +
+                                    '<strong>Category:</strong> ' + escapeHtml(p._category) +
+                                '</p>' +
+                            '</div>' +
+
+                            '<div class="action-row">' +
+                                '<button type="button" class="ghost-btn" data-action="backCollection">Back to collection</button>' +
+                                '<button type="button" class="ghost-btn" data-action="backCategory">Back to category</button>' +
+                                '<button type="button" class="solid-btn" data-action="advisor" data-context="' + escapeHtml('Product: ' + p._name + ' (' + p._code + ')') + '">Speak to advisor</button>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function render() {
+            homeBtn.style.display = 'inline-flex';
+            backBtn.style.display = state.view === 'home' ? 'none' : 'inline-flex';
+            advisorBtn.style.display = state.view === 'home' ? 'none' : 'inline-flex';
+
+            if (state.view === 'home') renderHome();
+            if (state.view === 'category') renderCategory();
+            if (state.view === 'collection') renderCollection();
+            if (state.view === 'product') renderProduct();
+            bindActions();
+        }
+
+        function bindActions() {
+            document.querySelectorAll('[data-action="category"]').forEach((el) => {
+                el.addEventListener('click', () => openCategory(el.getAttribute('data-category')));
+            });
+            document.querySelectorAll('[data-action="collection"]').forEach((el) => {
+                el.addEventListener('click', () => {
+                    const collection = el.getAttribute('data-collection');
+                    const items = getFilteredCategoryProducts(state.category).filter((p) => p._tag === collection);
+                    if (items.length === 1) openProduct(items[0]._code);
+                    else openCollection(collection);
+                });
+            });
+            document.querySelectorAll('[data-action="product"]').forEach((el) => {
+                el.addEventListener('click', () => openProduct(el.getAttribute('data-code')));
+            });
+
+            document.querySelectorAll('[data-action="advisor"]').forEach((el) => {
+                el.addEventListener('click', () => openAdvisor(el.getAttribute('data-context') || 'Request a curated recommendation.'));
+            });
+
+            const applyBudgetHome = document.getElementById('applyBudgetHome');
+            const clearBudgetHome = document.getElementById('clearBudgetHome');
+            const homeBudgetMin = document.getElementById('homeBudgetMin');
+            const homeBudgetMax = document.getElementById('homeBudgetMax');
+
+            const applyBudgetCategory = document.getElementById('applyBudgetCategory');
+            const clearBudgetCategory = document.getElementById('clearBudgetCategory');
+            const catBudgetMin = document.getElementById('catBudgetMin');
+            const catBudgetMax = document.getElementById('catBudgetMax');
+
+            const backToHomeFromCategory = document.getElementById('backToHomeFromCategory');
+
+            if (applyBudgetHome) {
+                applyBudgetHome.addEventListener('click', () => {
+                    state.budgetMin = homeBudgetMin ? homeBudgetMin.value : '';
+                    state.budgetMax = homeBudgetMax ? homeBudgetMax.value : '';
+                    render();
+                });
+            }
+            if (clearBudgetHome) {
+                clearBudgetHome.addEventListener('click', () => {
+                    state.budgetMin = '';
+                    state.budgetMax = '';
+                    render();
+                });
+            }
+
+            if (applyBudgetCategory) {
+                applyBudgetCategory.addEventListener('click', () => {
+                    state.budgetMin = catBudgetMin ? catBudgetMin.value : '';
+                    state.budgetMax = catBudgetMax ? catBudgetMax.value : '';
+                    render();
+                });
+            }
+            if (clearBudgetCategory) {
+                clearBudgetCategory.addEventListener('click', () => {
+                    state.budgetMin = '';
+                    state.budgetMax = '';
+                    render();
+                });
+            }
+            if (backToHomeFromCategory) {
+                backToHomeFromCategory.addEventListener('click', goHome);
+            }
+        }
+
+        function openAdvisor(context) {
+            state.pendingAdvisor = context || null;
+            advisorContext.textContent = context ? context : 'Request a curated recommendation or an advisor callback.';
+            advisorBackdrop.style.display = 'flex';
+            advisorBackdrop.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeAdvisor() {
+            advisorBackdrop.style.display = 'none';
+            advisorBackdrop.setAttribute('aria-hidden', 'true');
+        }
+
+        function buildBrandGrid() {
+            brandGrid.innerHTML = BRAND_OPTIONS.map((brand, idx) => {
+                const id = 'brand_' + idx;
+                return (
+                    '<label class="brand-chip" for="' + id + '">' +
+                        '<input type="checkbox" id="' + id + '" name="preferredBrands" value="' + escapeHtml(brand) + '" />' +
+                        '<span>' + escapeHtml(brand) + '</span>' +
+                    '</label>'
+                );
+            }).join('');
+        }
+
+        function fillAdvisorFromSaved() {
+            try {
+                const saved = localStorage.getItem('bd_user_info');
+                if (!saved) return;
+                const data = JSON.parse(saved);
+                document.getElementById('formName').value = data.name || '';
+                document.getElementById('formPhone').value = data.phone || '';
+                document.getElementById('formCountryCode').value = data.countryCode || '+974';
+                document.getElementById('formOccasion').value = data.occasion || '';
+                document.getElementById('formStone').value = data.stonePreference || '';
+                document.getElementById('formMetal').value = data.metalPreference || '';
+                document.getElementById('formMessage').value = data.message || '';
+                const preferred = Array.isArray(data.preferredBrands) ? data.preferredBrands : [];
+                [...brandGrid.querySelectorAll('input[type="checkbox"]')].forEach((input) => {
+                    input.checked = preferred.includes(input.value);
+                });
+            } catch (e) {}
+        }
+
+        function submitAdvisor(event) {
+            event.preventDefault();
+
+            const preferredBrands = [...brandGrid.querySelectorAll('input[type="checkbox"]:checked')].map((el) => el.value);
+
+            const userInfo = {
+                name: document.getElementById('formName').value.trim(),
+                phone: document.getElementById('formPhone').value.trim(),
+                countryCode: document.getElementById('formCountryCode').value,
+                occasion: document.getElementById('formOccasion').value,
+                stonePreference: document.getElementById('formStone').value.trim(),
+                metalPreference: document.getElementById('formMetal').value.trim(),
+                message: document.getElementById('formMessage').value.trim(),
+                preferredBrands
+            };
+
+            localStorage.setItem('bd_user_info', JSON.stringify(userInfo));
+
+            const current = state.pendingAdvisor || {};
+            const payload = {
+                action: 'Advisor',
+                context: current,
+                productCode: current.productCode || (current.product ? current.product._code : null) || null,
+                productName: current.productName || (current.product ? current.product._name : null) || null,
+                category: state.category || null,
+                collection: state.collection || null,
+                pageUrl: window.location.href,
+                customerName: userInfo.name || null,
+                customerPhone: (userInfo.countryCode || '') + (userInfo.phone || ''),
+                occasion: userInfo.occasion || null,
+                preferredBrands: userInfo.preferredBrands,
+                stonePreference: userInfo.stonePreference || null,
+                metalPreference: userInfo.metalPreference || null,
+                message: userInfo.message || null,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const webhookUrl = 'https://n8n.srv1138489.hstgr.cloud/webhook/weblink-buttons';
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(() => {});
+            } catch (e) {}
+
+            try {
+                if (window.parent && window.parent.postMessage) {
+                    window.parent.postMessage({
+                        type: 'Advisor',
+                        payload
+                    }, '*');
+                }
+            } catch (e) {}
+
+            closeAdvisor();
+            alert('Request sent.');
+        }
+
+        homeBtn.addEventListener('click', goHome);
+        backBtn.addEventListener('click', goBack);
+        advisorBtn.addEventListener('click', () => {
+            const context = state.view === 'home'
+                ? 'General advisor request'
+                : (state.view === 'category'
+                    ? 'Category: ' + state.category
+                    : (state.view === 'collection'
+                        ? 'Collection: ' + state.collection
+                        : 'Product: ' + (currentProduct() ? currentProduct()._name : 'Selected piece')));
+            openAdvisor(context);
+        });
+
+        document.getElementById('closeAdvisor').addEventListener('click', closeAdvisor);
+        document.getElementById('cancelAdvisor').addEventListener('click', closeAdvisor);
+        advisorBackdrop.addEventListener('click', (event) => {
+            if (event.target === advisorBackdrop) closeAdvisor();
+        });
+        advisorForm.addEventListener('submit', submitAdvisor);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                if (advisorBackdrop.style.display === 'flex') closeAdvisor();
+            }
+        });
+
+        buildBrandGrid();
+        fillAdvisorFromSaved();
+        render();
+    </script>
+</body>
+</html>
